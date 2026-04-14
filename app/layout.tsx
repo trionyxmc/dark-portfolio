@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
   openGraph: {
-    title: 'DarknessServices | Premium Minecraft Creator',
-    description: 'Elite Minecraft services, plugin configurations, Discord bots, and premium network creation.',
+    title: 'DARK_NESS SERVICES | Desarrollo Minecraft & Discord Premium',
+    description: 'Servicios premium de desarrollo para Minecraft y Discord. Configuraciones avanzadas, bots personalizados, tiendas Tebex y soluciones web profesionales.',
     type: 'website',
   },
 }
