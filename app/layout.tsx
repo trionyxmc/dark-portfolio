@@ -23,11 +23,11 @@ const pressStart = Press_Start_2P({
 })
 
 export const metadata: Metadata = {
-  title: 'DarknessServices | Premium Minecraft Creator',
-  description: 'Elite Minecraft services, plugin configurations, Discord bots, and premium network creation. 5+ years of experience crafting exceptional gaming experiences.',
+  title: 'DARK_NESS SERVICES | Desarrollo Minecraft & Discord Premium',
+  description: 'Servicios premium de desarrollo para Minecraft y Discord. Configuraciones avanzadas, bots personalizados, tiendas Tebex y soluciones web profesionales.',
   generator: 'v0.app',
   keywords: ['Minecraft', 'Plugin Configuration', 'Discord Bots', 'Tebex', 'Server Networks', 'Premium Services'],
-  authors: [{ name: 'DarknessServices' }],
+  authors: [{ name: 'DARK_NESS SERVICES' }],
   icons: {
     icon: [
       {
