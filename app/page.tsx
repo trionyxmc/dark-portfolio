@@ -8,9 +8,8 @@ import { HeroSection } from '@/components/sections/hero'
 import { TrustBar } from '@/components/sections/trust-bar'
 import { AboutSection } from '@/components/sections/about'
 import { ServicesSection } from '@/components/sections/services'
-import { BBBProductsSection } from '@/components/sections/bbb-products'
-import { TestimonialsSection } from '@/components/sections/testimonials'
 import { ProjectsLabSection } from '@/components/sections/projects-lab'
+import { TestimonialsSection } from '@/components/sections/testimonials'
 import { SkillsSection } from '@/components/sections/skills'
 import { ContactSection } from '@/components/sections/contact'
 import { FinalCTASection } from '@/components/sections/final-cta'
@@ -37,9 +36,8 @@ export default function Home() {
         <TrustBar />
         <AboutSection />
         <ServicesSection />
-        <BBBProductsSection />
-        <TestimonialsSection />
         <ProjectsLabSection />
+        <TestimonialsSection />
         <SkillsSection />
         <ContactSection />
         <FinalCTASection />
