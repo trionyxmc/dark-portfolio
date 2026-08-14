@@ -268,13 +268,13 @@ function ServiceCard({ service, index, isInView }: {
           </ul>
 
           {/* Price and CTA */}
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="px-4 py-2 rounded-full bg-primary/20 border border-primary/40 glow-crimson-sm">
+          <div className="flex flex-col gap-4">
+            <div className="self-start px-4 py-2 rounded-full bg-primary/20 border border-primary/40 glow-crimson-sm">
               <span className="text-primary font-semibold">{service.price}</span>
             </div>
             <Button
               asChild
-              className="group/btn bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="w-full group/btn bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <a href="#contact">
                 Cotizar este servicio
