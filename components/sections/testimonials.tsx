@@ -8,7 +8,14 @@ import { allTestimonials, type Testimonial } from '@/lib/testimonials-data'
 const row1 = allTestimonials.slice(0, 18)
 const row2 = allTestimonials.slice(18, 35)
 
-const SKIN_API = 'https://mc-heads.net/avatar'
+// Varios servicios que renderizan skins de Minecraft a partir de un username.
+// Si el primero esta bloqueado en la red del visitante (adblock, DNS
+// filtrado, antivirus), probamos con el siguiente antes de rendirnos y
+// mostrar solo las iniciales.
+const SKIN_APIS = [
+  (u: string, size: number) => `https://mc-heads.net/avatar/${encodeURIComponent(u)}/${size}`,
+  (u: string, size: number) => `https://minotar.net/avatar/${encodeURIComponent(u)}/${size}`,
+]
 
 function getInitials(label: string) {
   // Usamos Array.from para no cortar caracteres Unicode (emojis, símbolos)
@@ -24,14 +31,15 @@ function MinecraftAvatar({ username, fallback, size = 36 }: {
   size?: number
 }) {
   const [loaded, setLoaded] = useState(false)
-  const [error, setError] = useState(false)
+  const [sourceIndex, setSourceIndex] = useState(0)
+  const exhausted = sourceIndex >= SKIN_APIS.length
 
   // Si el username cambia (ej. tras editar los datos y un hot-reload) pero
   // React reutiliza la misma instancia del componente, sin esto el estado
   // de carga/error queda pegado al username anterior y el avatar se rompe.
   useEffect(() => {
     setLoaded(false)
-    setError(false)
+    setSourceIndex(0)
   }, [username])
 
   return (
@@ -42,7 +50,7 @@ function MinecraftAvatar({ username, fallback, size = 36 }: {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       position: 'relative', flexShrink: 0,
     }}>
-      {(!loaded || error) && (
+      {(!loaded || exhausted) && (
         <span style={{
           fontSize: size * 0.3, fontWeight: 700,
           color: '#C8102E', position: 'absolute',
@@ -52,12 +60,15 @@ function MinecraftAvatar({ username, fallback, size = 36 }: {
           {fallback}
         </span>
       )}
-      {!error && (
+      {!exhausted && (
         <img
-          src={`${SKIN_API}/${encodeURIComponent(username)}/${size * 2}`}
+          src={SKIN_APIS[sourceIndex](username, size * 2)}
           alt={username}
           onLoad={() => setLoaded(true)}
-          onError={() => setError(true)}
+          onError={() => {
+            setLoaded(false)
+            setSourceIndex((i) => i + 1)
+          }}
           style={{
             width: '100%', height: '100%',
             objectFit: 'cover', imageRendering: 'pixelated',
