@@ -41,7 +41,7 @@ export function FloatingDiscordButton() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.96 }}
-            className="group flex items-center gap-3 pl-4 pr-5 h-14 rounded-full bg-[#5865F2] text-white shadow-[0_8px_30px_rgba(88,101,242,0.45)] hover:shadow-[0_8px_36px_rgba(88,101,242,0.6)] transition-shadow"
+            className="relative flex items-center gap-3 pl-4 pr-5 h-14 rounded-full bg-[#5865F2] text-white shadow-[0_8px_30px_rgba(88,101,242,0.45)] hover:shadow-[0_8px_36px_rgba(88,101,242,0.6)] transition-shadow"
           >
             <motion.span
               className="absolute inset-0 rounded-full"
