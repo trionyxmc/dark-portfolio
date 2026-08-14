@@ -46,6 +46,21 @@
   --obsidian: oklch(0.08 0.01 0);
   --obsidian-light: oklch(0.12 0.01 0);
   --nether: oklch(0.15 0.05 20);
+
+  /* Tokens de referencia para los glows en rgba() que se usan sueltos por
+     el sitio (radial-gradient no puede leer variables oklch directo en
+     todos los navegadores todavia, por eso siguen en rgba). Documentados
+     aca para no seguir inventando un cuarto rojo la proxima vez:
+     - --glow-rgb (139,0,0):    el mas usado, en hero/services/about/
+       contact/faq/terminos/footer/final-cta.
+     - --glow-bright-rgb (200,16,46): usado en testimonials.tsx y
+       skills.tsx, mismo tono que --crimson de arriba.
+     - --glow-lab-rgb (192,57,43): SOLO projects-lab.tsx, a proposito --
+       es parte de la identidad visual distinta del Lab, no una
+       inconsistencia a corregir. */
+  --glow-rgb: 139, 0, 0;
+  --glow-bright-rgb: 200, 16, 46;
+  --glow-lab-rgb: 192, 57, 43;
 }
 
 .dark {
