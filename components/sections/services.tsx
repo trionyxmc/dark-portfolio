@@ -35,7 +35,7 @@ const gradients = [
   'from-primary/30 via-primary/10 to-transparent',
 ]
 const featured = [false, true, false, false, false, false, false, false, false, false]
-const prices = ['$5', '$7', '$10', '$15', '$10', '$12', '$8', '$20', '$6', '$5']
+const prices = ['$5', '$50', '$15', '$30', '$5', '$20', '$35', '$20', '$5', '$5']
 
 const servicesData = {
   en: [

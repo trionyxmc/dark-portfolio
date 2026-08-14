@@ -39,12 +39,29 @@ const SKIN_APIS = [
   (u: string, size: number) => `https://minotar.net/avatar/${encodeURIComponent(u)}/${size}`,
 ]
 
+// Busca la primera letra o numero "normal" (ASCII) dentro de una palabra,
+// normalizando primero con NFKD: esto convierte variantes decorativas de
+// Unicode (negrita matematica, superindices, etc. — comunes en nicks de
+// Discord) de vuelta a su letra base. Ej: '𝐕' -> 'V', 'ⁿ' -> 'n'.
+function firstAsciiChar(word: string): string | null {
+  for (const ch of Array.from(word.normalize('NFKD'))) {
+    if (/[A-Za-z0-9]/.test(ch)) return ch.toUpperCase()
+  }
+  return null
+}
+
 function getInitials(label: string) {
-  // Usamos Array.from para no cortar caracteres Unicode (emojis, símbolos)
-  // a la mitad, lo cual causaba un mismatch de hidratacion servidor/cliente.
   const words = label.trim().split(/\s+/).filter(Boolean)
-  const chars = words.map(w => Array.from(w)[0]).filter((c): c is string => Boolean(c))
-  return chars.slice(0, 2).join('')
+  const wordInitials = words.map(firstAsciiChar).filter((c): c is string => Boolean(c))
+  if (wordInitials.length > 0) return wordInitials.slice(0, 2).join('')
+
+  // Si ninguna palabra tenia una letra/numero ASCII (nick 100% simbolos o
+  // en otro alfabeto), usamos la primera letra de cualquier idioma en vez
+  // de mostrar puros simbolos decorativos.
+  const anyLetters = Array.from(label).filter((c) => /[\p{L}\p{N}]/u.test(c))
+  if (anyLetters.length > 0) return anyLetters.slice(0, 2).join('').toUpperCase()
+
+  return '?'
 }
 
 function MinecraftAvatar({ username, fallback, size = 36 }: {
