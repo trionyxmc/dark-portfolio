@@ -4,23 +4,25 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 export function LoadingScreen() {
-  // Solo se muestra una vez por sesion de navegador. Sin esto, volver a "/"
-  // desde otra pagina (o con el boton atras) remonta este componente y tapa
-  // todo el sitio con la pantalla de carga otra vez, dando la sensacion de
-  // que la pagina esta "trabada" hasta que se hace F5.
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window === 'undefined') return true
-    return sessionStorage.getItem('ds-loaded') !== '1'
-  })
+  // Arranca en `true` siempre (igual que en el servidor) para que el primer
+  // render en el cliente coincida exacto con el HTML del servidor y no haya
+  // mismatch de hidratacion. Recien despues de montar (useEffect, que solo
+  // corre en el cliente) chequeamos sessionStorage para saber si hay que
+  // ocultarla de una. Esto evita que la pantalla de carga se repita al
+  // volver a "/" desde otra pagina, sin romper la hidratacion.
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (!isLoading) return
+    if (sessionStorage.getItem('ds-loaded') === '1') {
+      setIsLoading(false)
+      return
+    }
     const timer = setTimeout(() => {
       sessionStorage.setItem('ds-loaded', '1')
       setIsLoading(false)
     }, 2000)
     return () => clearTimeout(timer)
-  }, [isLoading])
+  }, [])
 
   return (
     <AnimatePresence>
