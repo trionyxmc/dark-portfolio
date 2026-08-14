@@ -105,8 +105,8 @@ export function ContactSection() {
             ¿Armamos Tu <span className="text-primary text-glow">Proximo Servidor</span>?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Contame que tenes en mente y en menos de 24 horas te digo exactamente
-            como lo hacemos y cuanto sale.
+            Cuéntame qué tienes en mente y en menos de 24 horas te digo exactamente
+            cómo lo hacemos y cuánto sale.
           </p>
         </motion.div>
 
@@ -127,7 +127,7 @@ export function ContactSection() {
                   <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6 glow-crimson">
                     <CheckCircle2 className="w-10 h-10 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Listo!</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">¡Listo!</h3>
                   <p className="text-muted-foreground mb-6">
                     Se abrio tu cliente de correo con el mensaje listo para enviar.
                     Te respondere en menos de 24 horas.
@@ -210,7 +210,7 @@ export function ContactSection() {
                       name="message"
                       required
                       rows={4}
-                      placeholder="Cuentame sobre tu proyecto..."
+                      placeholder="Cuéntame sobre tu proyecto..."
                       className="bg-secondary/30 border-border/50 focus:border-primary/50 resize-none"
                     />
                   </div>
@@ -285,8 +285,8 @@ export function ContactSection() {
                   Cero Configs de Manual
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Reviso tu servidor, entiendo que necesitas, y armo algo pensado
-                  para vos — no una plantilla que ya le vendi a otros diez.
+                  Reviso tu servidor, entiendo qué necesitas, y armo algo pensado
+                  para ti — no una plantilla que ya le vendí a otros diez.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 text-sm">
                   <span className="px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30">
@@ -312,7 +312,7 @@ export function ContactSection() {
           className="text-center mt-20"
         >
           <p className="text-muted-foreground mb-4">
-            Prefieres explorar? Revisa mis productos en el marketplace.
+            ¿Prefieres explorar? Revisa mis productos en el marketplace.
           </p>
           <Button
             asChild

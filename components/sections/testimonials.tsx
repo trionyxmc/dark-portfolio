@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { allTestimonials } from '@/lib/testimonials-data'
+import { allTestimonials, type Testimonial } from '@/lib/testimonials-data'
 
 // 2 filas para el marquee
 const row1 = allTestimonials.slice(0, 18)
@@ -169,22 +169,27 @@ function MarqueeRow({ testimonials, direction = 'left', duration = 65 }: {
   const doubled = [...testimonials, ...testimonials]
 
   return (
-    <div style={{
-      overflow: 'hidden',
-      padding: '4px 0',
-      maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-    }}>
-      <motion.div
-        style={{ display: 'flex', gap: 14, width: 'max-content' }}
-        animate={{ x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] }}
-        transition={{ duration, repeat: Infinity, ease: 'linear' }}
-        whileHover={{ animationPlayState: 'paused' } as never}
+    <div
+      className="marquee-row"
+      style={{
+        overflow: 'hidden',
+        padding: '4px 0',
+        maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+      }}
+    >
+      {/* Animacion via CSS puro (ver globals.css) en vez de framer-motion:
+          asi el hover realmente pausa el scroll y el usuario puede leer
+          una tarjeta sin que se le escape. */}
+      <div
+        className="marquee-track"
+        data-direction={direction}
+        style={{ display: 'flex', gap: 14, width: 'max-content', animationDuration: `${duration}s` }}
       >
         {doubled.map((t, i) => (
           <TestimonialCard key={`${t.id}-${i}`} t={t} />
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }

@@ -34,12 +34,12 @@ const faqs = [
   {
     question: '¿Contratar un servicio a medida o comprar en tu tienda BuiltByBit?',
     answer:
-      'Si ya sabés lo que necesitás y querés algo rápido y probado, mi tienda en BuiltByBit tiene productos listos para instalar. Si necesitás algo personalizado para tu servidor, comunidad o idea especifica, lo mejor es contratarme directamente acá.',
+      'Si ya sabes lo que necesitas y quieres algo rápido y probado, mi tienda en BuiltByBit tiene productos listos para instalar. Si necesitas algo personalizado para tu servidor, comunidad o idea específica, lo mejor es contratarme directamente aquí.',
   },
   {
     question: '¿Por dónde te contacto?',
     answer:
-      'Discord es el canal más rápido para hablar y resolver dudas. También podés escribirme por email o llenar el formulario de contacto de esta página.',
+      'Discord es el canal más rápido para hablar y resolver dudas. También puedes escribirme por email o llenar el formulario de contacto de esta página.',
   },
 ]
 

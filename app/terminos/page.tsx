@@ -226,7 +226,7 @@ const groups: { label: string; sections: TosSection[] }[] = [
         title: 'Contacto',
         body: (
           <p>
-            Para dudas sobre estos términos podés escribirnos por{' '}
+            Para dudas sobre estos términos puedes escribirnos por{' '}
             <a
               href="https://discord.gg/RDfAFqhZye"
               target="_blank"
@@ -435,9 +435,9 @@ export default function TerminosPage() {
               transition={{ duration: 0.5 }}
               className="glass-card glow-crimson rounded-2xl p-8 sm:p-10 text-center mt-10"
             >
-              <h3 className="text-xl font-bold text-foreground mb-2">¿Tenés alguna duda?</h3>
+              <h3 className="text-xl font-bold text-foreground mb-2">¿Tienes alguna duda?</h3>
               <p className="text-muted-foreground mb-6">
-                Escribime y te aclaro cualquier punto de estos términos antes de empezar tu proyecto.
+                Escríbeme y te aclaro cualquier punto de estos términos antes de empezar tu proyecto.
               </p>
               <Link
                 href="/#contact"

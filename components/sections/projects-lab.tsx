@@ -208,7 +208,7 @@ function ProjectCard({
           <div className="w-full h-full flex flex-col items-center justify-center gap-2">
             <span
               className="text-[56px] text-[#2d2d2d] leading-none"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
             >
               {project.num}
             </span>
@@ -238,7 +238,7 @@ function ProjectCard({
         </div>
         <div
           className="text-[22px] text-[#f0ece4] leading-none tracking-[.04em] mb-2"
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
         >
           {project.name}
         </div>
@@ -333,7 +333,7 @@ function ProjectModal({
                 <div className="w-full h-full flex items-center justify-center">
                   <span
                     className="text-[88px] text-[#2a2a2a] leading-none"
-                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
                   >
                     {project.ph}
                   </span>
@@ -401,7 +401,7 @@ function ProjectModal({
 
                 <div
                   className="text-[44px] text-[#f0ece4] leading-[.9] tracking-[.03em] mb-3"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
                 >
                   {project.name}
                 </div>
@@ -438,7 +438,7 @@ function ProjectModal({
                 >
                   <span
                     className="text-[18px] text-[#f0ece4] tracking-[.06em]"
-                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
                   >
                     Quiero algo similar
                   </span>
@@ -462,8 +462,6 @@ export function ProjectsLabSection() {
 
   return (
     <>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');`}</style>
-
       <section
         ref={sectionRef}
         id="lab"
@@ -486,7 +484,7 @@ export function ProjectsLabSection() {
             </div>
             <h2
               className="text-[clamp(44px,8vw,80px)] text-[#f0ece4] leading-[.92] tracking-[.02em] mb-3"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
             >
               LAB DE<br />
               <span className="text-primary">PROYECTOS</span>

@@ -16,6 +16,7 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeHref, setActiveHref] = useState('')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,32 @@ export function Navbar() {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Resalta en el menu la seccion que el visitante esta viendo, asi siempre
+  // sabe donde esta dentro de la pagina de una sola vista sin tener que
+  // adivinar a partir del scroll.
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.querySelector(link.href))
+      .filter((el): el is Element => Boolean(el))
+
+    if (sections.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+        if (visible) {
+          setActiveHref(`#${visible.target.id}`)
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+    )
+
+    sections.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -59,19 +86,29 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="relative px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-1/2 transition-all duration-300" />
-              </motion.a>
-            ))}
+            {navLinks.map((link, index) => {
+              const isActive = activeHref === link.href
+              return (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`relative px-4 py-2 text-sm transition-colors group ${
+                    isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary transition-all duration-300 ${
+                      isActive ? 'w-1/2' : 'w-0 group-hover:w-1/2'
+                    }`}
+                  />
+                </motion.a>
+              )
+            })}
           </div>
 
           {/* CTA Button */}
@@ -113,19 +150,25 @@ export function Navbar() {
           >
             <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
             <nav className="relative pt-24 px-6 flex flex-col gap-4">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-2xl font-semibold text-foreground hover:text-primary transition-colors py-3 border-b border-border/50"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {navLinks.map((link, index) => {
+                const isActive = activeHref === link.href
+                return (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`text-2xl font-semibold transition-colors py-3 border-b border-border/50 ${
+                      isActive ? 'text-primary' : 'text-foreground hover:text-primary'
+                    }`}
+                  >
+                    {link.label}
+                  </motion.a>
+                )
+              })}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
