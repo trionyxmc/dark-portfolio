@@ -15,7 +15,7 @@ const stats = [
     icon: Star,
     value: 100,
     suffix: '+',
-    label: 'Configs Premium',
+    label: 'Configs Entregadas',
   },
   {
     icon: Zap,

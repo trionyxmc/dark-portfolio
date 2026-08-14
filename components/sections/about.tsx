@@ -34,7 +34,7 @@ const expertiseCards = [
   {
     icon: ShoppingBag,
     title: 'Tiendas Tebex',
-    description: 'Disenos premium de tiendas con UX optimizada para maximas conversiones.',
+    description: 'Tiendas donde el visitante entiende que comprar en 5 segundos.',
     gradient: 'from-primary/15 to-primary/5',
   },
   {
@@ -115,8 +115,9 @@ export function AboutSection() {
             En Que Me <span className="text-primary text-glow">Especializo</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Anos de experiencia entregando soluciones premium de Minecraft. 
-            Desde configuraciones complejas hasta infraestructuras de red completas.
+            Seis años metido en el código de Minecraft y Discord. Configs que otros dan por
+            imposibles, networks que aguantan miles de jugadores sin parpadear, y una regla que
+            nunca rompo: si no queda perfecto, lo repito.
           </p>
         </motion.div>
 

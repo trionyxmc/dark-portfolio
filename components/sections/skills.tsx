@@ -63,7 +63,7 @@ const categories = [
   {
     id: 4,
     title: 'Infraestructura',
-    sub: 'Redes & Producción',
+    sub: 'Networks & Producción',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
         <rect x="2" y="2" width="20" height="8" rx="2"/>

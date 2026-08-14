@@ -58,14 +58,14 @@ export function HeroSection() {
               transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
             >
-              <span className="text-foreground">Creando</span>
+              <span className="text-foreground">Construyo</span>
               <br />
-              <span className="text-primary text-glow">Experiencias</span>
+              <span className="text-primary text-glow">Servidores</span>
               <br />
-              <span className="text-foreground">Minecraft</span>
+              <span className="text-foreground">Que Impresionan</span>
               <br />
               <span className="font-[var(--font-display)] text-xl sm:text-2xl lg:text-3xl text-muted-foreground tracking-wider">
-                PREMIUM
+                SIN PLANTILLAS
               </span>
             </motion.h1>
 
@@ -76,8 +76,8 @@ export function HeroSection() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto lg:mx-0 mb-8 leading-relaxed"
             >
-              Configuraciones elite de plugins, bots de Discord personalizados, y 
-              soluciones profesionales de redes. Confiado por owners de todo el mundo.
+              Plugins que se sienten hechos a medida, bots que tu comunidad usa todos los
+              días, y networks que no se caen a mitad de un evento. Nada de configs copiadas.
             </motion.p>
 
             {/* CTA Buttons */}

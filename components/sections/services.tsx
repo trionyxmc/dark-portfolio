@@ -40,7 +40,7 @@ const services = [
   {
     icon: Server,
     title: '📡 Creacion de Networks',
-    description: 'Networks de servidores profesionales construidas para escalar.',
+    description: 'Networks que aguantan picos de jugadores sin que nada se caiga.',
     features: [
       'Servidores lobby',
       'Sistemas de auth',
@@ -72,7 +72,7 @@ const services = [
   {
     icon: ShoppingCart,
     title: '🛒 Tiendas Tebex',
-    description: 'Disenos de tiendas premium optimizados para conversiones.',
+    description: 'Tiendas que no se sienten como plantilla — pensadas para vender.',
     features: [
       'Personalizacion Tebex',
       'CSS/HTML personalizado',
@@ -88,7 +88,7 @@ const services = [
   {
     icon: Link2,
     title: '🌐 Dominio a IP',
-    description: 'Servicios profesionales de configuracion DNS y dominios.',
+    description: 'Tu dominio apuntando bien a la primera, sin vueltas raras.',
     features: [
       'Configuracion DNS',
       'Configuracion segura',
@@ -136,7 +136,7 @@ const services = [
   {
     icon: Building2,
     title: '🏢 Servidores Dedicados',
-    description: 'Setup profesional de servidores dedicados para maxima estabilidad.',
+    description: 'Servidores dedicados listos para produccion, sin sustos despues.',
     features: [
       'Instalacion de SO',
       'Configuracion de red',
@@ -313,14 +313,14 @@ export function ServicesSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6"
           >
             <Sparkles className="w-4 h-4" />
-            Servicios Premium
+            Hecho A Medida, No En Serie
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Lo Que <span className="text-primary text-glow">Ofrezco</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Servicios profesionales disenados para elevar tu servidor de Minecraft
-            y tu comunidad al siguiente nivel.
+            Cada servicio de esta lista lo entregué decenas de veces — se exactamente
+            donde suelen fallar los demas, y como evitarlo en el tuyo.
           </p>
 
           {/* Aclaracion: trabajo a medida vs productos ya hechos en BBB */}

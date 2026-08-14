@@ -102,11 +102,11 @@ export function ContactSection() {
             Trabajemos Juntos
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Listo Para <span className="text-primary text-glow">Elevar</span> Tu Servidor?
+            ¿Armamos Tu <span className="text-primary text-glow">Proximo Servidor</span>?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Contactame para servicios premium de Minecraft. 
-            Creemos algo excepcional juntos.
+            Contame que tenes en mente y en menos de 24 horas te digo exactamente
+            como lo hacemos y cuanto sale.
           </p>
         </motion.div>
 
@@ -282,11 +282,11 @@ export function ContactSection() {
                   <Sparkles className="w-7 h-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
-                  Calidad Premium Garantizada
+                  Cero Configs de Manual
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Cada proyecto recibe mi atencion completa y experiencia. 
-                  No solo entrego—supero expectativas.
+                  Reviso tu servidor, entiendo que necesitas, y armo algo pensado
+                  para vos — no una plantilla que ya le vendi a otros diez.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 text-sm">
                   <span className="px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30">

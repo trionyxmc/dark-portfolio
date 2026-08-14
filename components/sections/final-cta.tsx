@@ -112,8 +112,8 @@ export function FinalCTASection() {
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight"
           >
             <span className="text-balance">
-              ¿LISTO PARA LLEVAR TU SERVIDOR{' '}
-              <span className="text-primary text-glow">AL SIGUIENTE NIVEL</span>?
+              ¿LE DAMOS A TU SERVIDOR EL{' '}
+              <span className="text-primary text-glow">UPGRADE QUE SE MERECE</span>?
             </span>
           </motion.h2>
 
@@ -124,8 +124,8 @@ export function FinalCTASection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Unete a los cientos de servidores que ya confiaron en mi trabajo.
-            Configuraciones premium que transforman tu comunidad.
+            Mas de 360 servidores ya pasaron por mis manos. El tuyo puede ser el
+            proximo — sin configs de manual, sin copy-paste de otro server.
           </motion.p>
 
           {/* Trust indicators — mejorados con glass card */}

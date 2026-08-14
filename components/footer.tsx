@@ -125,7 +125,7 @@ export function Footer() {
             transition={{ delay: 0.25 }}
             className="text-sm text-muted-foreground/70 mb-9 max-w-xs text-center leading-relaxed"
           >
-            Configuraciones premium para servidores de minecraft y discord
+            Servidores de Minecraft y Discord que no se sienten genericos
           </motion.p>
 
           {/* ── Divider ── */}
