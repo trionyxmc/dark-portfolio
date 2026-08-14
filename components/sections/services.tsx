@@ -242,6 +242,7 @@ export function ServicesSection() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-nether/20 to-background" />
       <div className="absolute top-1/2 left-0 w-1/3 h-1/2 bg-[radial-gradient(ellipse_at_left,rgba(139,0,0,0.1)_0%,transparent_60%)]" />
+      <div className="absolute bottom-0 right-0 w-1/3 h-1/2 bg-[radial-gradient(ellipse_at_right,rgba(139,0,0,0.08)_0%,transparent_60%)]" />
 
       <div ref={sectionRef} className="relative z-10 container mx-auto px-6">
         {/* Section header */}

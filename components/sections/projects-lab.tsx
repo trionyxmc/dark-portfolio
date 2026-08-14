@@ -429,6 +429,7 @@ export function ProjectsLabSection() {
         className="relative py-24 lg:py-32 bg-[#0b0b0b] overflow-hidden"
       >
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[radial-gradient(ellipse,rgba(192,57,43,0.15)_0%,transparent_70%)] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-[radial-gradient(ellipse,rgba(192,57,43,0.08)_0%,transparent_70%)] pointer-events-none" />
 
         <div className="relative z-10 container mx-auto px-6">
           <motion.div

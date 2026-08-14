@@ -334,9 +334,25 @@ export function SkillsSection() {
       <section
         id="skills"
         ref={sectionRef}
-        style={{ background: '#0a0a0c', padding: '56px 32px 64px', fontFamily: 'var(--dm)' }}
+        style={{ background: '#0a0a0c', padding: '56px 32px 64px', fontFamily: 'var(--dm)', position: 'relative', overflow: 'hidden' }}
       >
-        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+        {/* Glow ambiental: esta seccion era negro solido plano, sin ningun
+            degradado como el resto del sitio. */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            background: 'radial-gradient(ellipse 750px 450px at 90% 0%, rgba(200,16,46,0.09) 0%, transparent 65%)',
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            background: 'radial-gradient(ellipse 650px 400px at 5% 100%, rgba(200,16,46,0.06) 0%, transparent 65%)',
+          }}
+        />
+        <div style={{ maxWidth: 960, margin: '0 auto', position: 'relative', zIndex: 1 }}>
 
           {/* Header */}
           <div style={{ animation: 'fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards', opacity: 0 }}>

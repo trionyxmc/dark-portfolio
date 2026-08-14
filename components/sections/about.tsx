@@ -93,8 +93,10 @@ export function AboutSection() {
   return (
     <section id="about" className="relative py-24 lg:py-32 overflow-hidden">
       {/* Background accents */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-nether/15 to-background" />
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-[radial-gradient(ellipse_at_top_right,rgba(139,0,0,0.1)_0%,transparent_60%)]" />
-      
+      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[radial-gradient(ellipse_at_bottom_left,rgba(139,0,0,0.07)_0%,transparent_60%)]" />
+
       <div ref={sectionRef} className="relative z-10 container mx-auto px-6">
         {/* Section header */}
         <motion.div

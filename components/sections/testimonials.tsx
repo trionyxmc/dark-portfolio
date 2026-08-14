@@ -260,8 +260,26 @@ export function TestimonialsSection() {
         overflow: 'hidden',
         padding: '72px 0',
         fontFamily: 'system-ui, -apple-system, sans-serif',
+        position: 'relative',
       }}
     >
+      {/* Glow ambiental: antes esta seccion era negro solido plano, sin
+          ningun degradado como el resto de las secciones del sitio. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'radial-gradient(ellipse 800px 420px at 15% 0%, rgba(200,16,46,0.10) 0%, transparent 65%)',
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'radial-gradient(ellipse 700px 400px at 85% 100%, rgba(200,16,46,0.07) 0%, transparent 65%)',
+        }}
+      />
+
       {/* ── Header ── */}
       <motion.div
         initial={{ opacity: 0, y: 18 }}
@@ -274,6 +292,8 @@ export function TestimonialsSection() {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 32,
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {/* Izquierda: badge + título + sub */}
@@ -369,7 +389,7 @@ export function TestimonialsSection() {
         initial={{ opacity: 0, y: 18 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, delay: 0.15 }}
-        style={{ display: 'flex', flexDirection: 'column', gap: 14 }}
+        style={{ display: 'flex', flexDirection: 'column', gap: 14, position: 'relative', zIndex: 1 }}
       >
         <MarqueeRow testimonials={row1} direction="left"  duration={65} />
         <MarqueeRow testimonials={row2} direction="right" duration={80} />
