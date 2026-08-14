@@ -142,21 +142,54 @@ export function HeroSection() {
                 className="w-[280px] sm:w-[340px] lg:w-[420px] object-contain drop-shadow-[0_0_50px_rgba(139,0,0,0.7)]"
               />
 
-              {/* Floating cubes around character */}
+              {/* Particulas de energia flotando alrededor del personaje,
+                  con el mismo brillo radial que el resto de la imagen */}
               <motion.div
-                className="absolute -top-8 -right-12 w-8 h-8 border-2 border-primary/40 bg-primary/10"
-                animate={{ y: [0, -10, 0], rotate: [0, 90, 0] }}
+                className="absolute -top-8 -right-12 w-8 h-8"
+                style={{
+                  background: 'radial-gradient(circle, rgba(200,16,46,0.9) 0%, rgba(139,0,0,0.4) 55%, transparent 75%)',
+                  boxShadow: '0 0 24px 6px rgba(200,16,46,0.55)',
+                  clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                }}
+                animate={{ y: [0, -10, 0], rotate: [0, 90, 0], opacity: [0.6, 1, 0.6], scale: [0.9, 1.05, 0.9] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               />
               <motion.div
-                className="absolute top-1/4 -left-16 w-6 h-6 border-2 border-primary/30 bg-primary/5"
-                animate={{ y: [0, 15, 0], rotate: [0, -90, 0] }}
+                className="absolute top-1/4 -left-16 w-4 h-4 rounded-full"
+                style={{
+                  background: 'radial-gradient(circle, rgba(139,92,246,0.9) 0%, rgba(88,28,135,0.4) 55%, transparent 75%)',
+                  boxShadow: '0 0 18px 5px rgba(139,92,246,0.5)',
+                }}
+                animate={{ y: [0, 15, 0], x: [0, -6, 0], opacity: [0.4, 0.9, 0.4], scale: [0.8, 1.1, 0.8] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
               />
               <motion.div
-                className="absolute bottom-1/4 -right-14 w-5 h-5 border-2 border-primary/50 bg-primary/15"
-                animate={{ y: [0, -8, 0], rotate: [0, 180, 0] }}
+                className="absolute bottom-1/4 -right-14 w-5 h-5"
+                style={{
+                  background: 'radial-gradient(circle, rgba(200,16,46,0.9) 0%, rgba(139,0,0,0.4) 55%, transparent 75%)',
+                  boxShadow: '0 0 20px 5px rgba(200,16,46,0.5)',
+                  clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                }}
+                animate={{ y: [0, -8, 0], rotate: [0, 180, 0], opacity: [0.5, 1, 0.5], scale: [0.85, 1, 0.85] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+              />
+              <motion.div
+                className="absolute top-8 -left-8 w-2.5 h-2.5 rounded-full"
+                style={{
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(139,92,246,0.5) 60%, transparent 80%)',
+                  boxShadow: '0 0 12px 3px rgba(139,92,246,0.6)',
+                }}
+                animate={{ y: [0, -12, 0], opacity: [0, 1, 0], scale: [0.6, 1, 0.6] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              />
+              <motion.div
+                className="absolute bottom-10 right-2 w-2 h-2 rounded-full"
+                style={{
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(200,16,46,0.5) 60%, transparent 80%)',
+                  boxShadow: '0 0 10px 3px rgba(200,16,46,0.6)',
+                }}
+                animate={{ y: [0, -10, 0], opacity: [0, 1, 0], scale: [0.6, 1, 0.6] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
               />
             </motion.div>
           </motion.div>
