@@ -80,7 +80,7 @@ const groupsEs: { label: string; sections: TosSection[] }[] = [
               <li>Dominio a IP y certificados SSL</li>
               <li>Instalación del panel Pterodactyl</li>
               <li>Instalación y optimización de VPS</li>
-              <li>Servidores dedicados</li>
+              <li>Instalacion de servidores dedicados</li>
               <li>Traducción de plugins, tiendas y bots</li>
             </ul>
             <p className="mt-3">
@@ -281,7 +281,7 @@ const groupsEn: { label: string; sections: TosSection[] }[] = [
               <li>Domain to IP and SSL certificates</li>
               <li>Pterodactyl panel installation</li>
               <li>VPS installation and optimization</li>
-              <li>Dedicated servers</li>
+              <li>Dedicated server installation</li>
               <li>Plugin, store, and bot translation</li>
             </ul>
             <p className="mt-3">

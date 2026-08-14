@@ -32,8 +32,8 @@ const socialLinksData = {
 }
 
 const serviceOptionsData = {
-  en: ['Configuration', 'Network Setup', 'Bot Development', 'Tebex Stores', 'Domain to IP', 'Pterodactyl', 'VPS Setup', 'Dedicated Servers', 'Translation', 'Bot Add-ons'],
-  es: ['Configuraciones', 'Creacion de Networks', 'Desarrollo de Bots', 'Tiendas Tebex', 'Dominio a IP', 'Pterodactyl', 'Instalacion de VPS', 'Servidores Dedicados', 'Traduccion', 'Complementos de Bots'],
+  en: ['Configuration', 'Network Setup', 'Bot Development', 'Tebex Stores', 'Domain to IP', 'Pterodactyl', 'VPS Setup', 'Dedicated Server Setup', 'Translation', 'Bot Add-ons'],
+  es: ['Configuraciones', 'Creacion de Networks', 'Desarrollo de Bots', 'Tiendas Tebex', 'Dominio a IP', 'Pterodactyl', 'Instalacion de VPS', 'Instalacion de Dedicados', 'Traduccion', 'Complementos de Bots'],
 }
 const serviceEmojis = ['⚙️', '📡', '🤖', '🛒', '🌐', '🦕', '🖥️', '🏢', '🌍', '➕']
 
