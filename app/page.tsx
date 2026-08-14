@@ -7,7 +7,6 @@ import { ScrollProgress } from '@/components/scroll-progress'
 import { FloatingDiscordButton } from '@/components/floating-discord-button'
 import { HeroSection } from '@/components/sections/hero'
 import { TrustBar } from '@/components/sections/trust-bar'
-import { SocialProofStrip } from '@/components/sections/social-proof-strip'
 import { AboutSection } from '@/components/sections/about'
 import { ServicesSection } from '@/components/sections/services'
 import { ProjectsLabSection } from '@/components/sections/projects-lab'
@@ -37,7 +36,6 @@ export default function Home() {
         {/* Page sections */}
         <HeroSection />
         <TrustBar />
-        <SocialProofStrip />
         <AboutSection />
         <ServicesSection />
         <ProjectsLabSection />

@@ -2,10 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { allTestimonials, type Testimonial } from '@/lib/testimonials-data'
-
-export type { Testimonial }
-export { allTestimonials }
+import { allTestimonials } from '@/lib/testimonials-data'
 
 // 2 filas para el marquee
 const row1 = allTestimonials.slice(0, 18)
@@ -13,7 +10,7 @@ const row2 = allTestimonials.slice(18, 35)
 
 const SKIN_API = 'https://mc-heads.net/avatar'
 
-export function getInitials(label: string) {
+function getInitials(label: string) {
   // Usamos Array.from para no cortar caracteres Unicode (emojis, símbolos)
   // a la mitad, lo cual causaba un mismatch de hidratacion servidor/cliente.
   const words = label.trim().split(/\s+/).filter(Boolean)
@@ -21,7 +18,7 @@ export function getInitials(label: string) {
   return chars.slice(0, 2).join('')
 }
 
-export function MinecraftAvatar({ username, fallback, size = 36 }: {
+function MinecraftAvatar({ username, fallback, size = 36 }: {
   username: string
   fallback: string
   size?: number
