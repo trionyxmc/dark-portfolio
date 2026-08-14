@@ -150,7 +150,7 @@ export function Footer() {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.25 }}
-            className="text-sm text-muted-foreground/70 mb-9 max-w-xs text-center leading-relaxed"
+            className="text-sm text-muted-foreground mb-9 max-w-xs text-center leading-relaxed"
           >
             {c.tagline}
           </motion.p>
@@ -225,7 +225,7 @@ export function Footer() {
             transition={{ delay: 0.6 }}
             className="flex flex-col items-center gap-2"
           >
-            <p className="text-sm text-muted-foreground/70 flex items-center gap-1.5">
+            <p className="text-sm text-muted-foreground flex items-center gap-1.5">
               {c.madeWith}{' '}
               <motion.span
                 animate={{ scale: [1, 1.35, 1] }}
@@ -237,7 +237,7 @@ export function Footer() {
               {' '}{c.by}{' '}
               <span className="text-muted-foreground font-medium">DARK_NESS SERVICES</span>
             </p>
-            <p className="text-xs text-muted-foreground/40">
+            <p className="text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()} {c.rights}
             </p>
           </motion.div>

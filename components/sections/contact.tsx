@@ -194,49 +194,56 @@ export function ContactSection() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-2 block">
+                      <label htmlFor="cf-name" className="text-sm font-medium text-foreground mb-2 block">
                         {c.nameLabel}
                       </label>
                       <Input
+                        id="cf-name"
                         name="name"
+                        autoComplete="name"
                         required
                         placeholder={c.namePlaceholder}
-                        className="bg-secondary/30 border-border/50 focus:border-primary/50 h-12"
+                        className="bg-secondary/30 border-border focus:border-primary/50 h-12"
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-2 block">
+                      <label htmlFor="cf-discord" className="text-sm font-medium text-foreground mb-2 block">
                         {c.discordLabel}
                       </label>
                       <Input
+                        id="cf-discord"
                         name="discord"
+                        autoComplete="off"
                         required
                         placeholder={c.discordPlaceholder}
-                        className="bg-secondary/30 border-border/50 focus:border-primary/50 h-12"
+                        className="bg-secondary/30 border-border focus:border-primary/50 h-12"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
+                    <label htmlFor="cf-email" className="text-sm font-medium text-foreground mb-2 block">
                       {c.emailLabel}
                     </label>
                     <Input
+                      id="cf-email"
                       name="email"
                       type="email"
+                      autoComplete="email"
                       required
                       placeholder="you@email.com"
-                      className="bg-secondary/30 border-border/50 focus:border-primary/50 h-12"
+                      className="bg-secondary/30 border-border focus:border-primary/50 h-12"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
+                    <label htmlFor="cf-service" className="text-sm font-medium text-foreground mb-2 block">
                       {c.serviceLabel}
                     </label>
                     <select
+                      id="cf-service"
                       name="service"
                       required
                       defaultValue=""
-                      className="w-full h-12 px-4 rounded-md bg-secondary/30 border border-border/50 focus:border-primary/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full h-12 px-4 rounded-md bg-secondary/30 border border-border focus:border-primary/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
                     >
                       <option value="" disabled>{c.servicePlaceholder}</option>
                       {serviceOptions.map((label, i) => (
@@ -246,15 +253,16 @@ export function ContactSection() {
                     </select>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">
+                    <label htmlFor="cf-message" className="text-sm font-medium text-foreground mb-2 block">
                       {c.detailsLabel}
                     </label>
                     <Textarea
+                      id="cf-message"
                       name="message"
                       required
                       rows={4}
                       placeholder={c.detailsPlaceholder}
-                      className="bg-secondary/30 border-border/50 focus:border-primary/50 resize-none"
+                      className="bg-secondary/30 border-border focus:border-primary/50 resize-none"
                     />
                   </div>
                   <Button

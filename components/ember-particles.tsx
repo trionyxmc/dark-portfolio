@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface Particle {
   id: number
@@ -14,6 +14,7 @@ interface Particle {
 
 export function EmberParticles({ count = 30 }: { count?: number }) {
   const [particles, setParticles] = useState<Particle[]>([])
+  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     const newParticles: Particle[] = Array.from({ length: count }, (_, i) => ({
@@ -26,6 +27,10 @@ export function EmberParticles({ count = 30 }: { count?: number }) {
     }))
     setParticles(newParticles)
   }, [count])
+
+  // Decorativas puras, en loop infinito: si el visitante pidio "reducir
+  // movimiento" en su sistema, directamente no las mostramos.
+  if (shouldReduceMotion) return null
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">

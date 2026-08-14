@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface Cube {
   id: number
@@ -21,6 +21,12 @@ const cubes: Cube[] = [
 ]
 
 export function FloatingCubes() {
+  const shouldReduceMotion = useReducedMotion()
+
+  // Decorativas puras, en loop infinito: si el visitante pidio "reducir
+  // movimiento" en su sistema, directamente no las mostramos.
+  if (shouldReduceMotion) return null
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {cubes.map((cube) => (

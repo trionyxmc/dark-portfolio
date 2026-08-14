@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { Pause, Play } from 'lucide-react'
 import { allTestimonials, type Testimonial } from '@/lib/testimonials-data'
 import { useLanguage } from '@/components/language-provider'
 
@@ -14,6 +15,8 @@ const sectionCopy = {
     subtitle: 'Over 360 servers configured. Real results, real clients.',
     stats: [['360+', 'Happy clients'], ['4.98', 'Average rating'], ['99%', 'Would recommend']] as const,
     trustPill: 'Join hundreds of servers',
+    pause: 'Pause scrolling reviews',
+    resume: 'Resume scrolling reviews',
   },
   es: {
     eyebrow: 'Testimonios Verificados',
@@ -23,6 +26,8 @@ const sectionCopy = {
     subtitle: 'Más de 360 servidores configurados. Resultados reales, clientes reales.',
     stats: [['360+', 'Clientes felices'], ['4.98', 'Rating promedio'], ['99%', 'Recomendarían']] as const,
     trustPill: 'Únete a cientos de servers',
+    pause: 'Pausar reseñas en movimiento',
+    resume: 'Reanudar reseñas en movimiento',
   },
 }
 
@@ -171,8 +176,8 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       </div>
 
       <p style={{
-        fontSize: 13,
-        color: 'rgba(240,237,232,0.6)',
+        fontSize: 15,
+        color: 'rgba(240,237,232,0.85)',
         lineHeight: 1.65,
         marginBottom: 16,
         fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -193,7 +198,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         </div>
         <div>
           <div style={{
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: 600,
             color: '#f0ede8',
             lineHeight: 1.2,
@@ -203,8 +208,8 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             {t.label}
           </div>
           <div style={{
-            fontSize: 11,
-            color: 'rgba(240,237,232,0.38)',
+            fontSize: 13,
+            color: 'rgba(240,237,232,0.65)',
             marginTop: 2,
             fontFamily: 'system-ui, -apple-system, sans-serif',
           }}>
@@ -216,29 +221,36 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   )
 }
 
-function MarqueeRow({ testimonials, direction = 'left', duration = 65 }: {
+function MarqueeRow({ testimonials, direction = 'left', duration = 65, paused }: {
   testimonials: Testimonial[]
   direction?: 'left' | 'right'
   duration?: number
+  paused: boolean
 }) {
   const doubled = [...testimonials, ...testimonials]
 
   return (
-    <div style={{
-      overflow: 'hidden',
-      padding: '4px 0',
-      maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-    }}>
-      <motion.div
-        style={{ display: 'flex', gap: 14, width: 'max-content' }}
-        animate={{ x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] }}
-        transition={{ duration, repeat: Infinity, ease: 'linear' }}
+    <div
+      className="overflow-hidden py-1"
+      style={{
+        maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+      }}
+    >
+      {/* Animacion via CSS (@keyframes marquee-scroll-* en globals.css),
+          pausada/reanudada mediante data-paused controlado por React (no
+          por :hover) para que el boton de pausa y prefers-reduced-motion
+          funcionen de forma predecible. */}
+      <div
+        className="marquee-track flex gap-3.5 w-max"
+        data-direction={direction}
+        data-paused={paused}
+        style={{ animationDuration: `${duration}s` }}
       >
         {doubled.map((t, i) => (
           <TestimonialCard key={`${t.id}-${i}`} t={t} />
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }
@@ -248,6 +260,21 @@ export function TestimonialsSection() {
   const s = sectionCopy[locale]
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const shouldReduceMotion = useReducedMotion()
+
+  // El marquee arranca pausado si el sistema pide "reducir movimiento",
+  // pero el visitante puede reanudarlo a mano con el boton: no le sacamos
+  // el control, solo respetamos su preferencia como punto de partida.
+  const [paused, setPaused] = useState(false)
+  const [userToggled, setUserToggled] = useState(false)
+  useEffect(() => {
+    if (!userToggled && shouldReduceMotion) setPaused(true)
+  }, [shouldReduceMotion, userToggled])
+
+  const togglePaused = () => {
+    setUserToggled(true)
+    setPaused((p) => !p)
+  }
 
   const badgePlayers = allTestimonials.slice(0, 5)
 
@@ -285,22 +312,13 @@ export function TestimonialsSection() {
         initial={{ opacity: 0, y: 18 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, delay: 0.05 }}
-        style={{
-          padding: '0 48px',
-          marginBottom: 44,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 32,
-          position: 'relative',
-          zIndex: 1,
-        }}
+        className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 px-5 sm:px-8 lg:px-12 mb-10 lg:mb-11"
       >
         {/* Izquierda: badge + título + sub */}
         <div>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            fontSize: 11, fontWeight: 600, letterSpacing: '0.16em',
+            fontSize: 12, fontWeight: 600, letterSpacing: '0.16em',
             textTransform: 'uppercase', color: '#C8102E', marginBottom: 14,
           }}>
             <span style={{ display: 'inline-block', width: 18, height: 2, background: '#C8102E', borderRadius: 2 }} />
@@ -323,7 +341,7 @@ export function TestimonialsSection() {
 
           <p style={{
             fontSize: 14,
-            color: 'rgba(240,237,232,0.40)',
+            color: 'rgba(240,237,232,0.65)',
             fontWeight: 400,
             lineHeight: 1.6,
           }}>
@@ -331,12 +349,12 @@ export function TestimonialsSection() {
           </p>
         </div>
 
-        {/* Derecha: stats + trust pill */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 32, flexShrink: 0 }}>
+        {/* Derecha: stats + trust pill + control de pausa */}
+        <div className="flex flex-wrap items-center gap-6 sm:gap-8 flex-shrink-0">
 
           {/* Stats */}
           {s.stats.map(([num, lbl], i) => (
-            <div key={lbl} style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+            <div key={lbl} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
               {i > 0 && (
                 <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.08)' }} />
               )}
@@ -352,8 +370,8 @@ export function TestimonialsSection() {
                   {num}
                 </div>
                 <div style={{
-                  fontSize: 11,
-                  color: 'rgba(240,237,232,0.35)',
+                  fontSize: 12,
+                  color: 'rgba(240,237,232,0.65)',
                   letterSpacing: '0.03em',
                   marginTop: 4,
                 }}>
@@ -376,10 +394,27 @@ export function TestimonialsSection() {
                 </div>
               ))}
             </div>
-            <span style={{ fontSize: 12, color: 'rgba(240,237,232,0.40)', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: 13, color: 'rgba(240,237,232,0.65)', whiteSpace: 'nowrap' }}>
               {s.trustPill}
             </span>
           </div>
+
+          {/* Pausar/reanudar el marquee — control explicito, no depende de hover */}
+          <button
+            type="button"
+            onClick={togglePaused}
+            aria-pressed={paused}
+            aria-label={paused ? s.resume : s.pause}
+            title={paused ? s.resume : s.pause}
+            style={{
+              width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: '#111115', border: '1px solid rgba(255,255,255,0.1)',
+              color: '#f0ede8', cursor: 'pointer',
+            }}
+          >
+            {paused ? <Play size={14} style={{ marginLeft: 1 }} /> : <Pause size={14} />}
+          </button>
 
         </div>
       </motion.div>
@@ -391,8 +426,8 @@ export function TestimonialsSection() {
         transition={{ duration: 0.55, delay: 0.15 }}
         style={{ display: 'flex', flexDirection: 'column', gap: 14, position: 'relative', zIndex: 1 }}
       >
-        <MarqueeRow testimonials={row1} direction="left"  duration={65} />
-        <MarqueeRow testimonials={row2} direction="right" duration={80} />
+        <MarqueeRow testimonials={row1} direction="left"  duration={65} paused={paused} />
+        <MarqueeRow testimonials={row2} direction="right" duration={80} paused={paused} />
       </motion.div>
     </section>
   )

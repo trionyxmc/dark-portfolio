@@ -140,7 +140,7 @@ function SkillBar({
     <div className="group">
       <div className="flex items-baseline justify-between mb-2">
         <span
-          style={{ fontSize: 13, fontWeight: 400, color: 'rgba(240,237,232,0.7)', letterSpacing: '0.01em', transition: 'color 0.2s', fontFamily: 'var(--dm)' }}
+          style={{ fontSize: 14, fontWeight: 400, color: 'rgba(240,237,232,0.7)', letterSpacing: '0.01em', transition: 'color 0.2s', fontFamily: 'var(--dm)' }}
           className="group-hover:text-[var(--text)]"
         >
           {name}
@@ -148,7 +148,7 @@ function SkillBar({
         <span
           style={{
             fontFamily: 'var(--syne)',
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 700,
             color: 'var(--crimson)',
             letterSpacing: '0.04em',
@@ -266,10 +266,10 @@ function SkillCard({
           {category.icon}
         </div>
         <div>
-          <div style={{ fontFamily: 'var(--syne)', fontSize: 15, fontWeight: 700, color: 'var(--text)', lineHeight: 1.2 }}>
+          <h3 style={{ margin: 0, fontFamily: 'var(--syne)', fontSize: 15, fontWeight: 700, color: 'var(--text)', lineHeight: 1.2 }}>
             {category.title}
-          </div>
-          <div style={{ fontSize: 11, color: 'rgba(240,237,232,0.38)', fontWeight: 400, letterSpacing: '0.05em', marginTop: 2 }}>
+          </h3>
+          <div style={{ fontSize: 13, color: 'rgba(240,237,232,0.65)', fontWeight: 400, letterSpacing: '0.05em', marginTop: 2 }}>
             {category.sub}
           </div>
         </div>
@@ -356,14 +356,14 @@ export function SkillsSection() {
 
           {/* Header */}
           <div style={{ animation: 'fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards', opacity: 0 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--crimson)', marginBottom: 18 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--crimson)', marginBottom: 18 }}>
               <span style={{ display: 'inline-block', width: 18, height: 2, background: 'var(--crimson)', borderRadius: 2 }} />
               {s.eyebrow}
             </div>
             <h2 style={{ fontFamily: 'var(--syne)', fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.02em', color: 'var(--text)', marginBottom: 10 }}>
               {s.h2pre}<em style={{ fontStyle: 'normal', color: 'var(--crimson)' }}>{s.h2word}</em>
             </h2>
-            <p style={{ fontSize: 14, color: 'rgba(240,237,232,0.38)', marginBottom: 52, fontWeight: 300, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 14, color: 'rgba(240,237,232,0.65)', marginBottom: 52, fontWeight: 300, lineHeight: 1.6 }}>
               {s.subtitle}
             </p>
           </div>
