@@ -64,6 +64,8 @@ function MinecraftAvatar({ username, fallback, size = 36 }: {
         <img
           src={SKIN_APIS[sourceIndex](username, size * 2)}
           alt={username}
+          loading="lazy"
+          decoding="async"
           onLoad={() => setLoaded(true)}
           onError={() => {
             setLoaded(false)

@@ -201,6 +201,8 @@ function ProjectCard({
           <img
             src={project.images[0]}
             alt={project.name}
+            loading="lazy"
+            decoding="async"
             onError={() => setImgError(true)}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
