@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { allTestimonials } from '@/lib/testimonials-data'
 
@@ -25,6 +25,14 @@ function MinecraftAvatar({ username, fallback, size = 36 }: {
 }) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
+
+  // Si el username cambia (ej. tras editar los datos y un hot-reload) pero
+  // React reutiliza la misma instancia del componente, sin esto el estado
+  // de carga/error queda pegado al username anterior y el avatar se rompe.
+  useEffect(() => {
+    setLoaded(false)
+    setError(false)
+  }, [username])
 
   return (
     <div style={{
