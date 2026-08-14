@@ -6,6 +6,7 @@ import { siteUrl } from '@/lib/site'
 import { allTestimonials } from '@/lib/testimonials-data'
 import { LanguageProvider } from '@/components/language-provider'
 import type { Locale } from '@/components/language-provider'
+import { SkipLink } from '@/components/skip-link'
 import './globals.css'
 
 const inter = Inter({
@@ -160,6 +161,7 @@ export default async function RootLayout({
       </head>
       <body className="font-sans antialiased overflow-x-hidden">
         <LanguageProvider initialLocale={locale}>
+          <SkipLink />
           {children}
         </LanguageProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}

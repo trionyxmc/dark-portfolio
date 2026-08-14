@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { EmberParticles } from '@/components/ember-particles'
@@ -36,6 +36,7 @@ const copy = {
 export function HeroSection() {
   const { locale } = useLanguage()
   const c = copy[locale]
+  const shouldReduceMotion = useReducedMotion()
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -54,11 +55,18 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-nether/30" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,0,0,0.15)_0%,transparent_70%)]" />
       
-      {/* Volumetric fog effect */}
+      {/* Volumetric fog effect — el ciclo de color continuo se apaga si el
+          visitante pidio reducir movimiento; el parallax con scroll (y)
+          queda igual porque responde a una accion explicita del usuario. */}
       <motion.div
         className="absolute inset-0"
-        style={{ y }}
-        animate={{
+        style={{
+          y,
+          background: shouldReduceMotion
+            ? 'radial-gradient(ellipse at 50% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%)'
+            : undefined,
+        }}
+        animate={shouldReduceMotion ? undefined : {
           background: [
             'radial-gradient(ellipse at 30% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%)',
             'radial-gradient(ellipse at 70% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%)',
@@ -149,7 +157,7 @@ export function HeroSection() {
                 style={{
                   background: 'radial-gradient(circle, rgba(139, 0, 0, 0.3) 0%, rgba(139, 0, 0, 0.1) 40%, transparent 70%)',
                 }}
-                animate={{
+                animate={shouldReduceMotion ? undefined : {
                   scale: [1, 1.1, 1],
                   opacity: [0.5, 0.8, 0.5],
                 }}
@@ -160,7 +168,7 @@ export function HeroSection() {
             {/* Character PNG */}
             <motion.div
               className="relative z-10"
-              animate={{ y: [0, -15, 0] }}
+              animate={shouldReduceMotion ? undefined : { y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
               <img

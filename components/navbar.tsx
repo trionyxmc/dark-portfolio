@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -38,6 +38,24 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('')
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null)
+
+  // Escape cierra el menu movil y devuelve el foco al boton que lo abrio;
+  // al abrirse, el foco pasa al primer link para que no haga falta tabular
+  // desde cero.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    firstMenuLinkRef.current?.focus()
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+        menuButtonRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isMobileMenuOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -154,9 +172,12 @@ export function Navbar() {
           <div className="flex items-center gap-3 md:hidden">
             <LanguageToggle />
             <button
+              ref={menuButtonRef}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 text-foreground"
               aria-label={c.openMenu}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -172,6 +193,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
+            id="mobile-menu"
             className="fixed inset-0 z-40 md:hidden"
           >
             <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
@@ -181,6 +203,7 @@ export function Navbar() {
                 return (
                   <motion.a
                     key={link.href}
+                    ref={index === 0 ? firstMenuLinkRef : undefined}
                     href={link.href}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}

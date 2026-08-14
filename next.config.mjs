@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   // La optimizacion de imagenes de Next.js (conversion automatica a WebP/AVIF,
   // tamanos responsive, lazy loading) funciona nativa en Vercel sin config
   // extra. Estaba desactivada (unoptimized: true), por eso las 36 capturas

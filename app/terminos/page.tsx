@@ -595,7 +595,7 @@ export default function TerminosPage() {
   const headerInView = useInView(headerRef, { once: true, margin: '-40px' })
 
   return (
-    <main className="relative min-h-screen bg-background overflow-x-hidden">
+    <main id="main-content" className="relative min-h-screen bg-background overflow-x-hidden">
       <ScrollProgress />
       <TosTopBar backHomeLabel={t.backHome} backLabel={t.back} />
 

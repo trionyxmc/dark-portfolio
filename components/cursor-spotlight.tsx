@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion'
 
 export function CursorSpotlight() {
+  const shouldReduceMotion = useReducedMotion()
   const [isVisible, setIsVisible] = useState(false)
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
@@ -29,6 +30,11 @@ export function CursorSpotlight() {
       window.removeEventListener('mouseleave', hideCursor)
     }
   }, [cursorX, cursorY])
+
+  // El halo de luz sigue al mouse con un lag de resorte (spring): es
+  // movimiento decorativo extra encima del propio cursor. Si el
+  // visitante pidio reducir movimiento, no lo mostramos.
+  if (shouldReduceMotion) return null
 
   return (
     <motion.div

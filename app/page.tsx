@@ -26,7 +26,7 @@ export default function Home() {
       {/* Scroll progress indicator */}
       <ScrollProgress />
       
-      <main className="relative min-h-screen">
+      <main id="main-content" className="relative min-h-screen">
         {/* Custom cursor spotlight effect */}
         <CursorSpotlight />
         
