@@ -16,7 +16,7 @@ const copy = {
       { href: '#testimonials', label: 'Reviews' },
       { href: '#contact', label: 'Contact' },
     ],
-    cta: 'Hire Me',
+    cta: 'Contact Me',
     openMenu: 'Open menu',
   },
   es: {

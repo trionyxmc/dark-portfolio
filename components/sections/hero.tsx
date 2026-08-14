@@ -17,7 +17,7 @@ const copy = {
     subtitle:
       "Plugins that feel custom-built, bots your community actually uses every day, and networks that don't crash mid-event. No copy-pasted configs.",
     viewProjects: 'View Projects',
-    hire: 'Hire Me',
+    hire: 'Contact Me',
     alt: 'DS character',
   },
   es: {
