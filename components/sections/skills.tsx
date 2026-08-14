@@ -280,9 +280,10 @@ export function SkillsSection() {
           --card: #111115;
           --card-border: rgba(255,255,255,0.07);
           --text: #f0ede8;
-          --syne: var(--font-syne), sans-serif;
-          --dm: var(--font-dm-sans), sans-serif;
+          --syne: 'Syne', sans-serif;
+          --dm: 'DM Sans', sans-serif;
         }
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0);    }
