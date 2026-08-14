@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { ScrollProgress } from '@/components/scroll-progress'
+import { useLanguage } from '@/components/language-provider'
 import {
   ArrowLeft,
   ArrowRight,
@@ -32,7 +33,7 @@ interface TosSection {
   body: React.ReactNode
 }
 
-const intro: TosSection = {
+const introEs: TosSection = {
   slug: 'aceptacion',
   icon: ShieldCheck,
   title: 'Aceptación de los Términos',
@@ -46,7 +47,21 @@ const intro: TosSection = {
   ),
 }
 
-const groups: { label: string; sections: TosSection[] }[] = [
+const introEn: TosSection = {
+  slug: 'aceptacion',
+  icon: ShieldCheck,
+  title: 'Acceptance of Terms',
+  body: (
+    <p>
+      By hiring any service offered by <strong className="text-foreground">DARK_NESS SERVICES</strong> — whether
+      through Discord, BuiltByBit, this website, or any other channel — the client fully accepts the terms
+      and conditions described below. If you disagree with any of these points, we recommend not
+      proceeding with the service.
+    </p>
+  ),
+}
+
+const groupsEs: { label: string; sections: TosSection[] }[] = [
   {
     label: 'El Servicio',
     sections: [
@@ -247,10 +262,248 @@ const groups: { label: string; sections: TosSection[] }[] = [
   },
 ]
 
-const allSections = [intro, ...groups.flatMap((g) => g.sections)]
+const groupsEn: { label: string; sections: TosSection[] }[] = [
+  {
+    label: 'The Service',
+    sections: [
+      {
+        slug: 'servicios',
+        icon: Wrench,
+        title: 'Services Offered',
+        body: (
+          <>
+            <p className="mb-3">We provide development and configuration services related to:</p>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 list-disc list-inside text-muted-foreground">
+              <li>Plugin, menu, and system configuration</li>
+              <li>Network creation (BungeeCord / Velocity)</li>
+              <li>Discord bot and add-on development</li>
+              <li>Tebex store design and customization</li>
+              <li>Domain to IP and SSL certificates</li>
+              <li>Pterodactyl panel installation</li>
+              <li>VPS installation and optimization</li>
+              <li>Dedicated servers</li>
+              <li>Plugin, store, and bot translation</li>
+            </ul>
+            <p className="mt-3">
+              The exact scope of each job is defined individually with the client before starting,
+              based on the service hired and the agreed budget.
+            </p>
+          </>
+        ),
+      },
+      {
+        slug: 'pagos',
+        icon: CreditCard,
+        title: 'Quotes and Payments',
+        body: (
+          <>
+            <p className="mb-3">
+              The prices listed on this site (&ldquo;From $X&rdquo;) are initial reference values. The final
+              price is confirmed once the full scope of the project is known, and it&apos;s communicated to
+              the client before any work begins.
+            </p>
+            <p>
+              For larger projects a deposit may be requested before starting. The remaining balance is paid
+              once the service is completed and before delivering final files, access, or credentials,
+              unless otherwise explicitly agreed with the client.
+            </p>
+          </>
+        ),
+      },
+      {
+        slug: 'entrega',
+        icon: Clock,
+        title: 'Delivery Times',
+        body: (
+          <p>
+            Estimated delivery times are communicated when the project is confirmed and depend on its
+            complexity. They may vary due to availability, current workload, or missing information/access
+            from the client&apos;s side. Any significant delay will be communicated in advance via Discord
+            or the agreed contact channel.
+          </p>
+        ),
+      },
+    ],
+  },
+  {
+    label: 'Client & Support',
+    sections: [
+      {
+        slug: 'responsabilidades-cliente',
+        icon: UserCheck,
+        title: 'Client Responsibilities',
+        body: (
+          <>
+            <p className="mb-3">To ensure the service runs smoothly, the client agrees to:</p>
+            <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
+              <li>Provide clear, complete, and accurate information about what they need</li>
+              <li>Grant necessary access (panels, FTP, server, accounts) when the work requires it</li>
+              <li>Respond to questions within a reasonable time during the project</li>
+              <li>Back up their information before granting third-party access</li>
+            </ul>
+          </>
+        ),
+      },
+      {
+        slug: 'soporte',
+        icon: LifeBuoy,
+        title: 'Included Revisions and Support',
+        body: (
+          <p>
+            Every project includes a reasonable number of minor adjustments after delivery, as long as they
+            stay within the originally agreed scope. Changes that involve significant additional work, new
+            features not originally included, or a redesign of scope are quoted separately.
+          </p>
+        ),
+      },
+      {
+        slug: 'reembolsos',
+        icon: RotateCcw,
+        title: 'Refund Policy',
+        important: true,
+        body: (
+          <>
+            <p className="mb-3">
+              Because of the custom nature of the work (configuration, development, and made-to-order
+              design), refunds are evaluated on a case-by-case basis:
+            </p>
+            <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
+              <li>If work hasn&apos;t started yet, the full deposit can be refunded</li>
+              <li>If work is already underway, the proportional part already completed is deducted</li>
+              <li>Once the service has been delivered and approved by the client, no refund applies</li>
+            </ul>
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    label: 'Legal & Ownership',
+    sections: [
+      {
+        slug: 'propiedad',
+        icon: Copyright,
+        title: 'Ownership and License of Configurations',
+        body: (
+          <p>
+            Configurations, systems, or products purchased through the marketplace (BuiltByBit) are
+            additionally governed by that platform&apos;s terms. Code and resources custom-built for a
+            specific client are for their exclusive use in their project; resale or redistribution without
+            express authorization is not allowed.
+          </p>
+        ),
+      },
+      {
+        slug: 'confidencialidad',
+        icon: Lock,
+        title: 'Confidentiality',
+        body: (
+          <p>
+            Any access, credentials, or sensitive information shared by the client to carry out the work is
+            used solely for that purpose and never shared with third parties. Once the project is finished,
+            the client is advised to rotate passwords for any access no longer needed.
+          </p>
+        ),
+      },
+      {
+        slug: 'responsabilidad',
+        icon: ShieldAlert,
+        title: 'Limitation of Liability',
+        important: true,
+        body: (
+          <p>
+            DARK_NESS SERVICES is not liable for indirect damages, data loss, or service interruptions
+            resulting from third-party failures (hosting, payment platforms, Discord, Tebex, Mojang, etc.),
+            nor for modifications made by the client or third parties after the work has been delivered.
+          </p>
+        ),
+      },
+      {
+        slug: 'modificaciones',
+        icon: RefreshCw,
+        title: 'Changes to These Terms',
+        body: (
+          <p>
+            These terms may be updated at any time to reflect changes in the services offered. The version
+            in effect is always the one published on this page.
+          </p>
+        ),
+      },
+    ],
+  },
+  {
+    label: 'Contact',
+    sections: [
+      {
+        slug: 'contacto',
+        icon: Mail,
+        title: 'Contact',
+        body: (
+          <p>
+            For questions about these terms you can reach us on{' '}
+            <a
+              href="https://discord.gg/RDfAFqhZye"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline underline-offset-4"
+            >
+              Discord
+            </a>{' '}
+            or at{' '}
+            <a href="mailto:darknessservices00@gmail.com" className="text-primary hover:underline underline-offset-4">
+              darknessservices00@gmail.com
+            </a>
+            .
+          </p>
+        ),
+      },
+    ],
+  },
+]
+
+const pageCopy = {
+  en: {
+    backHome: 'Back to home',
+    back: 'Back',
+    badge: 'Legal',
+    h1pre: 'Terms of ',
+    h1word: 'Service',
+    subtitle:
+      'The terms under which DARK_NESS SERVICES provides development and configuration services for Minecraft, Discord, and more.',
+    sections: (n: number) => `${n} sections`,
+    effectiveSince: 'Effective as of',
+    dateLocale: 'en-US',
+    index: 'Contents',
+    important: 'Important',
+    ctaTitle: 'Have a question?',
+    ctaBody: "Message me and I'll clarify anything about these terms before we start your project.",
+    ctaButton: 'Contact Me',
+    intro: introEn,
+    groups: groupsEn,
+  },
+  es: {
+    backHome: 'Volver al inicio',
+    back: 'Volver',
+    badge: 'Legal',
+    h1pre: 'Términos de ',
+    h1word: 'Servicio',
+    subtitle:
+      'Las condiciones bajo las cuales DARK_NESS SERVICES presta sus servicios de desarrollo y configuración para Minecraft, Discord y más.',
+    sections: (n: number) => `${n} secciones`,
+    effectiveSince: 'Vigente desde',
+    dateLocale: 'es-ES',
+    index: 'Índice',
+    important: 'Importante',
+    ctaTitle: '¿Tienes alguna duda?',
+    ctaBody: 'Escríbeme y te aclaro cualquier punto de estos términos antes de empezar tu proyecto.',
+    ctaButton: 'Contactar',
+    intro: introEs,
+    groups: groupsEs,
+  },
+}
 
 // ─── Sticky top bar: siempre visible, resuelve "como vuelvo" sin importar el scroll ──
-function TosTopBar() {
+function TosTopBar({ backHomeLabel, backLabel }: { backHomeLabel: string; backLabel: string }) {
   return (
     <div className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-xl border-b border-white/[0.06]">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
@@ -267,8 +520,8 @@ function TosTopBar() {
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="hidden xs:inline">Volver al inicio</span>
-          <span className="xs:hidden">Volver</span>
+          <span className="hidden xs:inline">{backHomeLabel}</span>
+          <span className="xs:hidden">{backLabel}</span>
         </Link>
       </div>
     </div>
@@ -285,7 +538,7 @@ function GroupHeader({ label }: { label: string }) {
   )
 }
 
-function SectionCard({ section, index }: { section: TosSection; index: number }) {
+function SectionCard({ section, index, importantLabel }: { section: TosSection; index: number; importantLabel: string }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
   const Icon = section.icon
@@ -322,7 +575,7 @@ function SectionCard({ section, index }: { section: TosSection; index: number })
             {section.important && (
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[10px] font-semibold uppercase tracking-[.08em]">
                 <AlertTriangle className="w-3 h-3" />
-                Importante
+                {importantLabel}
               </span>
             )}
           </div>
@@ -334,13 +587,17 @@ function SectionCard({ section, index }: { section: TosSection; index: number })
 }
 
 export default function TerminosPage() {
+  const { locale } = useLanguage()
+  const t = pageCopy[locale]
+  const allSections = [t.intro, ...t.groups.flatMap((g) => g.sections)]
+
   const headerRef = useRef(null)
   const headerInView = useInView(headerRef, { once: true, margin: '-40px' })
 
   return (
     <main className="relative min-h-screen bg-background overflow-x-hidden">
       <ScrollProgress />
-      <TosTopBar />
+      <TosTopBar backHomeLabel={t.backHome} backLabel={t.back} />
 
       {/* Ambient background, consistente con el resto del sitio */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-nether/20 to-background pointer-events-none" />
@@ -357,29 +614,28 @@ export default function TerminosPage() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6">
             <Scale className="w-4 h-4" />
-            Legal
+            {t.badge}
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.05]">
-            Términos de <span className="text-primary text-glow">Servicio</span>
+            {t.h1pre}<span className="text-primary text-glow">{t.h1word}</span>
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            Las condiciones bajo las cuales DARK_NESS SERVICES presta sus servicios de desarrollo y
-            configuración para Minecraft, Discord y más.
+            {t.subtitle}
           </p>
           <div className="flex flex-wrap items-center gap-3 text-xs">
             <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground border border-border/50">
-              {allSections.length} secciones
+              {t.sections(allSections.length)}
             </span>
             <span className="px-3 py-1.5 rounded-full bg-secondary/50 text-muted-foreground border border-border/50">
-              Vigente desde{' '}
-              {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+              {t.effectiveSince}{' '}
+              {new Date().toLocaleDateString(t.dateLocale, { year: 'numeric', month: 'long', day: 'numeric' })}
             </span>
           </div>
         </motion.div>
 
         {/* Intro — tarjeta destacada, sin agrupar */}
         <div className="mb-10">
-          <SectionCard section={intro} index={0} />
+          <SectionCard section={t.intro} index={0} importantLabel={t.important} />
         </div>
 
         <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-14 items-start">
@@ -391,7 +647,7 @@ export default function TerminosPage() {
             className="hidden lg:block sticky top-24 self-start"
           >
             <div className="text-xs font-mono uppercase tracking-[.14em] text-muted-foreground/50 mb-4">
-              Índice
+              {t.index}
             </div>
             <ul className="space-y-1 border-l border-border/50">
               {allSections.map((s, i) => (
@@ -413,14 +669,14 @@ export default function TerminosPage() {
 
           {/* Contenido agrupado */}
           <div>
-            {groups.map((group, gi) => {
-              const startIndex = 1 + groups.slice(0, gi).reduce((acc, g) => acc + g.sections.length, 0)
+            {t.groups.map((group, gi) => {
+              const startIndex = 1 + t.groups.slice(0, gi).reduce((acc, g) => acc + g.sections.length, 0)
               return (
                 <div key={group.label} className="mb-10 last:mb-0">
                   <GroupHeader label={group.label} />
                   <div className="space-y-5">
                     {group.sections.map((s, i) => (
-                      <SectionCard key={s.slug} section={s} index={startIndex + i} />
+                      <SectionCard key={s.slug} section={s} index={startIndex + i} importantLabel={t.important} />
                     ))}
                   </div>
                 </div>
@@ -435,15 +691,15 @@ export default function TerminosPage() {
               transition={{ duration: 0.5 }}
               className="glass-card glow-crimson rounded-2xl p-8 sm:p-10 text-center mt-10"
             >
-              <h3 className="text-xl font-bold text-foreground mb-2">¿Tienes alguna duda?</h3>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t.ctaTitle}</h3>
               <p className="text-muted-foreground mb-6">
-                Escríbeme y te aclaro cualquier punto de estos términos antes de empezar tu proyecto.
+                {t.ctaBody}
               </p>
               <Link
                 href="/#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-colors group"
               >
-                Contactar
+                {t.ctaButton}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
