@@ -169,27 +169,21 @@ function MarqueeRow({ testimonials, direction = 'left', duration = 65 }: {
   const doubled = [...testimonials, ...testimonials]
 
   return (
-    <div
-      className="marquee-row"
-      style={{
-        overflow: 'hidden',
-        padding: '4px 0',
-        maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-      }}
-    >
-      {/* Animacion via CSS puro (ver globals.css) en vez de framer-motion:
-          asi el hover realmente pausa el scroll y el usuario puede leer
-          una tarjeta sin que se le escape. */}
-      <div
-        className="marquee-track"
-        data-direction={direction}
-        style={{ display: 'flex', gap: 14, width: 'max-content', animationDuration: `${duration}s` }}
+    <div style={{
+      overflow: 'hidden',
+      padding: '4px 0',
+      maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+    }}>
+      <motion.div
+        style={{ display: 'flex', gap: 14, width: 'max-content' }}
+        animate={{ x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] }}
+        transition={{ duration, repeat: Infinity, ease: 'linear' }}
       >
         {doubled.map((t, i) => (
           <TestimonialCard key={`${t.id}-${i}`} t={t} />
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }
