@@ -2,54 +2,52 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { 
-  Settings, 
-  Server, 
-  Bot, 
-  ShoppingBag, 
-  Palette, 
+import {
+  Settings,
+  Server,
+  Bot,
+  ShoppingBag,
+  Palette,
   Package,
   HeartHandshake
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
-const expertiseCards = [
-  {
-    icon: Settings,
-    title: 'Configuracion de Plugins',
-    description: 'Configuraciones de nivel experto para DeluxeMenus, BattlePass, RankUp, y mas.',
-    gradient: 'from-primary/20 to-primary/5',
+const expertiseCardsData = {
+  en: [
+    { icon: Settings, title: 'Plugin Configuration', description: 'Expert-level configs for DeluxeMenus, BattlePass, RankUp, and more.', gradient: 'from-primary/20 to-primary/5' },
+    { icon: Server, title: 'Minecraft Networks', description: 'Full infrastructure with BungeeCord, Velocity, and cross-server sync.', gradient: 'from-primary/15 to-primary/5' },
+    { icon: Bot, title: 'Discord Bots', description: 'Custom bots with tickets, moderation, economy, and advanced embeds.', gradient: 'from-primary/20 to-primary/5' },
+    { icon: ShoppingBag, title: 'Tebex Stores', description: 'Stores where visitors know exactly what to buy in 5 seconds.', gradient: 'from-primary/15 to-primary/5' },
+    { icon: Palette, title: 'UI/UX Systems', description: 'Beautiful, intuitive interfaces that improve the player experience.', gradient: 'from-primary/20 to-primary/5' },
+    { icon: Package, title: 'Marketplace Products', description: 'Configs and resources trusted by thousands of server owners.', gradient: 'from-primary/15 to-primary/5' },
+  ],
+  es: [
+    { icon: Settings, title: 'Configuracion de Plugins', description: 'Configuraciones de nivel experto para DeluxeMenus, BattlePass, RankUp, y mas.', gradient: 'from-primary/20 to-primary/5' },
+    { icon: Server, title: 'Networks de Minecraft', description: 'Infraestructura completa con BungeeCord, Velocity, y sincronizacion entre servidores.', gradient: 'from-primary/15 to-primary/5' },
+    { icon: Bot, title: 'Bots de Discord', description: 'Bots personalizados con tickets, moderacion, economia, y embeds avanzados.', gradient: 'from-primary/20 to-primary/5' },
+    { icon: ShoppingBag, title: 'Tiendas Tebex', description: 'Tiendas donde el visitante entiende que comprar en 5 segundos.', gradient: 'from-primary/15 to-primary/5' },
+    { icon: Palette, title: 'Sistemas UI/UX', description: 'Interfaces hermosas e intuitivas que mejoran la experiencia del jugador.', gradient: 'from-primary/20 to-primary/5' },
+    { icon: Package, title: 'Productos Marketplace', description: 'Configs y recursos confiados por miles de owners de servidores.', gradient: 'from-primary/15 to-primary/5' },
+  ],
+}
+
+const sectionCopy = {
+  en: {
+    badge: 'About Me & Experience',
+    h2a: 'What I ',
+    h2b: 'Specialize In',
+    subtitle:
+      'Six years deep in Minecraft and Discord code. Configs other people call impossible, networks that hold thousands of players without blinking, and one rule I never break: if it isn\'t perfect, I redo it.',
   },
-  {
-    icon: Server,
-    title: 'Networks de Minecraft',
-    description: 'Infraestructura completa con BungeeCord, Velocity, y sincronizacion entre servidores.',
-    gradient: 'from-primary/15 to-primary/5',
+  es: {
+    badge: 'Sobre Mi & Experiencia',
+    h2a: 'En Que Me ',
+    h2b: 'Especializo',
+    subtitle:
+      'Seis años metido en el código de Minecraft y Discord. Configs que otros dan por imposibles, networks que aguantan miles de jugadores sin parpadear, y una regla que nunca rompo: si no queda perfecto, lo repito.',
   },
-  {
-    icon: Bot,
-    title: 'Bots de Discord',
-    description: 'Bots personalizados con tickets, moderacion, economia, y embeds avanzados.',
-    gradient: 'from-primary/20 to-primary/5',
-  },
-  {
-    icon: ShoppingBag,
-    title: 'Tiendas Tebex',
-    description: 'Tiendas donde el visitante entiende que comprar en 5 segundos.',
-    gradient: 'from-primary/15 to-primary/5',
-  },
-  {
-    icon: Palette,
-    title: 'Sistemas UI/UX',
-    description: 'Interfaces hermosas e intuitivas que mejoran la experiencia del jugador.',
-    gradient: 'from-primary/20 to-primary/5',
-  },
-  {
-    icon: Package,
-    title: 'Productos Marketplace',
-    description: 'Configs y recursos premium confiados por miles de owners de servidores.',
-    gradient: 'from-primary/15 to-primary/5',
-  },
-]
+}
 
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const cardRef = useRef<HTMLDivElement>(null)
@@ -86,6 +84,9 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
 }
 
 export function AboutSection() {
+  const { locale } = useLanguage()
+  const expertiseCards = expertiseCardsData[locale]
+  const s = sectionCopy[locale]
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
 
@@ -109,15 +110,13 @@ export function AboutSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6"
           >
             <HeartHandshake className="w-4 h-4" />
-            Sobre Mi & Experiencia
+            {s.badge}
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            En Que Me <span className="text-primary text-glow">Especializo</span>
+            {s.h2a}<span className="text-primary text-glow">{s.h2b}</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Seis años metido en el código de Minecraft y Discord. Configs que otros dan por
-            imposibles, networks que aguantan miles de jugadores sin parpadear, y una regla que
-            nunca rompo: si no queda perfecto, lo repito.
+            {s.subtitle}
           </p>
         </motion.div>
 

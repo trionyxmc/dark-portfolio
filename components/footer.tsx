@@ -10,6 +10,7 @@ import {
   Mail,
   ShoppingBag,
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 const socialLinks = [
   {
@@ -32,14 +33,40 @@ const socialLinks = [
   },
 ]
 
-const footerLinks = [
-  { name: 'Servicios',            href: '#services' },
-  { name: 'Laboratorio',          href: '#lab' },
-  { name: 'Contacto',             href: '#contact' },
-  { name: 'Términos de Servicio', href: '/terminos' },
-]
+const footerLinksData = {
+  en: [
+    { name: 'Services',         href: '#services' },
+    { name: 'Lab',              href: '#lab' },
+    { name: 'Contact',          href: '#contact' },
+    { name: 'Terms of Service', href: '/terminos' },
+  ],
+  es: [
+    { name: 'Servicios',            href: '#services' },
+    { name: 'Laboratorio',          href: '#lab' },
+    { name: 'Contacto',             href: '#contact' },
+    { name: 'Términos de Servicio', href: '/terminos' },
+  ],
+}
+
+const copy = {
+  en: {
+    tagline: "Minecraft and Discord servers that don't feel generic",
+    madeWith: 'Made with',
+    by: 'by',
+    rights: 'All rights reserved.',
+  },
+  es: {
+    tagline: 'Servidores de Minecraft y Discord que no se sienten genericos',
+    madeWith: 'Hecho con',
+    by: 'por',
+    rights: 'Todos los derechos reservados.',
+  },
+}
 
 export function Footer() {
+  const { locale } = useLanguage()
+  const footerLinks = footerLinksData[locale]
+  const c = copy[locale]
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
 
@@ -125,7 +152,7 @@ export function Footer() {
             transition={{ delay: 0.25 }}
             className="text-sm text-muted-foreground/70 mb-9 max-w-xs text-center leading-relaxed"
           >
-            Servidores de Minecraft y Discord que no se sienten genericos
+            {c.tagline}
           </motion.p>
 
           {/* ── Divider ── */}
@@ -199,7 +226,7 @@ export function Footer() {
             className="flex flex-col items-center gap-2"
           >
             <p className="text-sm text-muted-foreground/70 flex items-center gap-1.5">
-              Hecho con{' '}
+              {c.madeWith}{' '}
               <motion.span
                 animate={{ scale: [1, 1.35, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -207,11 +234,11 @@ export function Footer() {
               >
                 <Heart className="w-3.5 h-3.5 text-primary fill-primary" />
               </motion.span>
-              {' '}por{' '}
+              {' '}{c.by}{' '}
               <span className="text-muted-foreground font-medium">DARK_NESS SERVICES</span>
             </p>
             <p className="text-xs text-muted-foreground/40">
-              &copy; {new Date().getFullYear()} Todos los derechos reservados.
+              &copy; {new Date().getFullYear()} {c.rights}
             </p>
           </motion.div>
 

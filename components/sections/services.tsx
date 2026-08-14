@@ -19,174 +19,116 @@ import {
   Sparkles,
   Info,
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
-const services = [
-  {
-    icon: Settings,
-    title: '⚙️ Configuraciones',
-    description: 'Setups personalizados adaptados a tu vision de servidor y necesidades.',
-    features: [
-      'Menus y GUIs personalizados',
-      'Sistemas de misiones',
-      'Configs de Battle Pass',
-      'Escaleras de RankUp',
-      'Sistemas de rewards',
-      'Configuracion de kits',
-    ],
-    price: 'Desde $5',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: Server,
-    title: '📡 Creacion de Networks',
-    description: 'Networks que aguantan picos de jugadores sin que nada se caiga.',
-    features: [
-      'Servidores lobby',
-      'Sistemas de auth',
-      'Configuracion de proxy',
-      'BungeeCord/Velocity',
-      'Integracion Geyser',
-      'Sync entre servidores',
-    ],
-    price: 'Desde $7',
-    gradient: 'from-primary/40 via-primary/15 to-transparent',
-    featured: true,
-  },
-  {
-    icon: Bot,
-    title: '🤖 Desarrollo de Bots',
-    description: 'Bots personalizados con funciones poderosas para tu comunidad.',
-    features: [
-      'Sistemas de tickets',
-      'Modulos de economia',
-      'Herramientas de mod',
-      'Sistemas de sorteos',
-      'Auto moderacion',
-      'Embeds avanzados',
-    ],
-    price: 'Desde $10',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: ShoppingCart,
-    title: '🛒 Tiendas Tebex',
-    description: 'Tiendas que no se sienten como plantilla — pensadas para vender.',
-    features: [
-      'Personalizacion Tebex',
-      'CSS/HTML personalizado',
-      'Mejoras de UX',
-      'Optimizacion conversion',
-      'Responsive movil',
-      'Integracion de marca',
-    ],
-    price: 'Desde $15',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: Link2,
-    title: '🌐 Dominio a IP',
-    description: 'Tu dominio apuntando bien a la primera, sin vueltas raras.',
-    features: [
-      'Configuracion DNS',
-      'Configuracion segura',
-      'Despliegue rapido',
-      'Certificados SSL',
-      'Routing subdominios',
-      'Integracion CDN',
-    ],
-    price: 'Desde $10',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: LayoutPanelTop,
-    title: '🦕 Pterodactyl',
-    description: 'Instalacion y configuracion completa del panel Pterodactyl para gestionar tus servidores.',
-    features: [
-      'Instalacion de panel',
-      'Configuracion de nodos',
-      'Eggs personalizados',
-      'SSL y dominio propio',
-      'Gestion de usuarios',
-      'Wings optimizado',
-    ],
-    price: 'Desde $12',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: Monitor,
-    title: '🖥️ Instalacion de VPS',
-    description: 'Instalacion y optimizacion de tu VPS lista para produccion.',
-    features: [
-      'Endurecimiento de seguridad',
-      'Instalacion Java/Docker',
-      'Configuracion de firewall',
-      'Optimizacion de rendimiento',
-      'Backups automaticos',
-      'Acceso SSH seguro',
-    ],
-    price: 'Desde $8',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: Building2,
-    title: '🏢 Servidores Dedicados',
-    description: 'Servidores dedicados listos para produccion, sin sustos despues.',
-    features: [
-      'Instalacion de SO',
-      'Configuracion de red',
-      'Particionado de discos',
-      'Monitoreo 24/7',
-      'Optimizacion de recursos',
-      'Seguridad avanzada',
-    ],
-    price: 'Desde $20',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: Languages,
-    title: '🌍 Traduccion',
-    description: 'Traduccion completa de tu servidor, tienda o bot a multiples idiomas.',
-    features: [
-      'Traduccion de plugins',
-      'Localizacion de tienda Tebex',
-      'Traduccion de bots Discord',
-      'Multi idioma dinamico',
-      'Correccion de textos',
-      'Adaptacion cultural',
-    ],
-    price: 'Desde $6',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
-  {
-    icon: Puzzle,
-    title: '➕ Complementos de Bots',
-    description: 'Modulos y extensiones adicionales para potenciar tu bot de Discord.',
-    features: [
-      'Comandos personalizados',
-      'Integraciones API',
-      'Sistemas de niveles',
-      'Modulos de musica',
-      'Automatizaciones personalizadas',
-      'Soporte continuo',
-    ],
-    price: 'Desde $5',
-    gradient: 'from-primary/30 via-primary/10 to-transparent',
-    featured: false,
-  },
+const icons = [Settings, Server, Bot, ShoppingCart, Link2, LayoutPanelTop, Monitor, Building2, Languages, Puzzle]
+const gradients = [
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/40 via-primary/15 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
+  'from-primary/30 via-primary/10 to-transparent',
 ]
+const featured = [false, true, false, false, false, false, false, false, false, false]
+const prices = ['$5', '$7', '$10', '$15', '$10', '$12', '$8', '$20', '$6', '$5']
 
-function ServiceCard({ service, index, isInView }: { 
-  service: typeof services[0]
+const servicesData = {
+  en: [
+    { title: '⚙️ Configuration', description: 'Custom setups built around your server\'s vision and needs.',
+      features: ['Custom menus and GUIs', 'Quest systems', 'Battle Pass configs', 'RankUp ladders', 'Reward systems', 'Kit configuration'] },
+    { title: '📡 Network Setup', description: 'Networks that handle player spikes without anything going down.',
+      features: ['Lobby servers', 'Auth systems', 'Proxy configuration', 'BungeeCord/Velocity', 'Geyser integration', 'Cross-server sync'] },
+    { title: '🤖 Bot Development', description: 'Custom bots packed with powerful features for your community.',
+      features: ['Ticket systems', 'Economy modules', 'Moderation tools', 'Giveaway systems', 'Auto-moderation', 'Advanced embeds'] },
+    { title: '🛒 Tebex Stores', description: "Stores that don't feel like a template — built to sell.",
+      features: ['Tebex customization', 'Custom CSS/HTML', 'UX improvements', 'Conversion optimization', 'Mobile responsive', 'Brand integration'] },
+    { title: '🌐 Domain to IP', description: 'Your domain pointed correctly the first time, no weird workarounds.',
+      features: ['DNS configuration', 'Secure configuration', 'Fast deployment', 'SSL certificates', 'Subdomain routing', 'CDN integration'] },
+    { title: '🦕 Pterodactyl', description: 'Full installation and setup of the Pterodactyl panel to manage your servers.',
+      features: ['Panel installation', 'Node configuration', 'Custom eggs', 'SSL and custom domain', 'User management', 'Optimized Wings'] },
+    { title: '🖥️ VPS Setup', description: 'VPS installation and optimization, ready for production.',
+      features: ['Security hardening', 'Java/Docker installation', 'Firewall configuration', 'Performance optimization', 'Automatic backups', 'Secure SSH access'] },
+    { title: '🏢 Dedicated Servers', description: 'Dedicated servers ready for production, no surprises later.',
+      features: ['OS installation', 'Network configuration', 'Disk partitioning', '24/7 monitoring', 'Resource optimization', 'Advanced security'] },
+    { title: '🌍 Translation', description: 'Full translation of your server, store, or bot into multiple languages.',
+      features: ['Plugin translation', 'Tebex store localization', 'Discord bot translation', 'Dynamic multi-language support', 'Text proofreading', 'Cultural adaptation'] },
+    { title: '➕ Bot Add-ons', description: 'Extra modules and extensions to power up your Discord bot.',
+      features: ['Custom commands', 'API integrations', 'Leveling systems', 'Music modules', 'Custom automations', 'Ongoing support'] },
+  ],
+  es: [
+    { title: '⚙️ Configuraciones', description: 'Setups personalizados adaptados a tu vision de servidor y necesidades.',
+      features: ['Menus y GUIs personalizados', 'Sistemas de misiones', 'Configs de Battle Pass', 'Escaleras de RankUp', 'Sistemas de rewards', 'Configuracion de kits'] },
+    { title: '📡 Creacion de Networks', description: 'Networks que aguantan picos de jugadores sin que nada se caiga.',
+      features: ['Servidores lobby', 'Sistemas de auth', 'Configuracion de proxy', 'BungeeCord/Velocity', 'Integracion Geyser', 'Sync entre servidores'] },
+    { title: '🤖 Desarrollo de Bots', description: 'Bots personalizados con funciones poderosas para tu comunidad.',
+      features: ['Sistemas de tickets', 'Modulos de economia', 'Herramientas de mod', 'Sistemas de sorteos', 'Auto moderacion', 'Embeds avanzados'] },
+    { title: '🛒 Tiendas Tebex', description: 'Tiendas que no se sienten como plantilla — pensadas para vender.',
+      features: ['Personalizacion Tebex', 'CSS/HTML personalizado', 'Mejoras de UX', 'Optimizacion conversion', 'Responsive movil', 'Integracion de marca'] },
+    { title: '🌐 Dominio a IP', description: 'Tu dominio apuntando bien a la primera, sin vueltas raras.',
+      features: ['Configuracion DNS', 'Configuracion segura', 'Despliegue rapido', 'Certificados SSL', 'Routing subdominios', 'Integracion CDN'] },
+    { title: '🦕 Pterodactyl', description: 'Instalacion y configuracion completa del panel Pterodactyl para gestionar tus servidores.',
+      features: ['Instalacion de panel', 'Configuracion de nodos', 'Eggs personalizados', 'SSL y dominio propio', 'Gestion de usuarios', 'Wings optimizado'] },
+    { title: '🖥️ Instalacion de VPS', description: 'Instalacion y optimizacion de tu VPS lista para produccion.',
+      features: ['Endurecimiento de seguridad', 'Instalacion Java/Docker', 'Configuracion de firewall', 'Optimizacion de rendimiento', 'Backups automaticos', 'Acceso SSH seguro'] },
+    { title: '🏢 Servidores Dedicados', description: 'Servidores dedicados listos para produccion, sin sustos despues.',
+      features: ['Instalacion de SO', 'Configuracion de red', 'Particionado de discos', 'Monitoreo 24/7', 'Optimizacion de recursos', 'Seguridad avanzada'] },
+    { title: '🌍 Traduccion', description: 'Traduccion completa de tu servidor, tienda o bot a multiples idiomas.',
+      features: ['Traduccion de plugins', 'Localizacion de tienda Tebex', 'Traduccion de bots Discord', 'Multi idioma dinamico', 'Correccion de textos', 'Adaptacion cultural'] },
+    { title: '➕ Complementos de Bots', description: 'Modulos y extensiones adicionales para potenciar tu bot de Discord.',
+      features: ['Comandos personalizados', 'Integraciones API', 'Sistemas de niveles', 'Modulos de musica', 'Automatizaciones personalizadas', 'Soporte continuo'] },
+  ],
+}
+
+const sectionCopy = {
+  en: {
+    badge: 'Custom-Built, Not Mass-Produced',
+    h2a: 'What I ',
+    h2b: 'Offer',
+    subtitle:
+      "I've delivered every service on this list dozens of times — I know exactly where others usually mess up, and how to avoid that on yours.",
+    bannerPre: 'These services are custom-built. If you\'re after something ready-made and easy to install, ',
+    bannerLink: 'check out my BuiltByBit store',
+    priceFrom: 'From ',
+    mostPopular: 'Most Popular',
+    cta: 'Get a Quote',
+  },
+  es: {
+    badge: 'Hecho A Medida, No En Serie',
+    h2a: 'Lo Que ',
+    h2b: 'Ofrezco',
+    subtitle:
+      'Cada servicio de esta lista lo entregué decenas de veces — se exactamente donde suelen fallar los demas, y como evitarlo en el tuyo.',
+    bannerPre: 'Estos servicios son a medida. Si buscas algo ya armado y listo para instalar, ',
+    bannerLink: 'mira mi tienda en BuiltByBit',
+    priceFrom: 'Desde ',
+    mostPopular: 'Mas Popular',
+    cta: 'Cotizar este servicio',
+  },
+}
+
+function buildServices(locale: 'en' | 'es') {
+  return servicesData[locale].map((s, i) => ({
+    ...s,
+    icon: icons[i],
+    gradient: gradients[i],
+    featured: featured[i],
+    price: `${sectionCopy[locale].priceFrom}${prices[i]}`,
+  }))
+}
+
+type ServiceItem = ReturnType<typeof buildServices>[number]
+
+function ServiceCard({ service, index, isInView, ctaLabel, mostPopularLabel }: {
+  service: ServiceItem
   index: number
-  isInView: boolean 
+  isInView: boolean
+  ctaLabel: string
+  mostPopularLabel: string
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const Icon = service.icon
@@ -196,7 +138,7 @@ function ServiceCard({ service, index, isInView }: {
     const rect = cardRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
-    
+
     cardRef.current.style.setProperty('--mouse-x', `${x}px`)
     cardRef.current.style.setProperty('--mouse-y', `${y}px`)
   }
@@ -233,7 +175,7 @@ function ServiceCard({ service, index, isInView }: {
             className="absolute top-6 right-6 flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/50 text-primary text-sm glow-crimson-sm"
           >
             <Sparkles className="w-4 h-4" />
-            Mas Popular
+            {mostPopularLabel}
           </motion.div>
         )}
 
@@ -250,7 +192,7 @@ function ServiceCard({ service, index, isInView }: {
           <h3 className="text-xl font-bold text-foreground mb-3">
             {service.title}
           </h3>
-          
+
           <p className="text-muted-foreground mb-6 leading-relaxed">
             {service.description}
           </p>
@@ -277,7 +219,7 @@ function ServiceCard({ service, index, isInView }: {
               className="w-full group/btn bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <a href="#contact">
-                Cotizar este servicio
+                {ctaLabel}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </a>
             </Button>
@@ -289,6 +231,9 @@ function ServiceCard({ service, index, isInView }: {
 }
 
 export function ServicesSection() {
+  const { locale } = useLanguage()
+  const services = buildServices(locale)
+  const s = sectionCopy[locale]
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
 
@@ -313,14 +258,13 @@ export function ServicesSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6"
           >
             <Sparkles className="w-4 h-4" />
-            Hecho A Medida, No En Serie
+            {s.badge}
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Lo Que <span className="text-primary text-glow">Ofrezco</span>
+            {s.h2a}<span className="text-primary text-glow">{s.h2b}</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Cada servicio de esta lista lo entregué decenas de veces — se exactamente
-            donde suelen fallar los demas, y como evitarlo en el tuyo.
+            {s.subtitle}
           </p>
 
           {/* Aclaracion: trabajo a medida vs productos ya hechos en BBB */}
@@ -332,14 +276,14 @@ export function ServicesSection() {
           >
             <Info className="w-4 h-4 text-primary flex-shrink-0" />
             <span>
-              Estos servicios son a medida. Si buscas algo ya armado y listo para instalar,{' '}
+              {s.bannerPre}
               <a
                 href="https://builtbybit.com/creators/dark_ness.420596/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline underline-offset-4 font-medium"
               >
-                mira mi tienda en BuiltByBit
+                {s.bannerLink}
               </a>
               .
             </span>
@@ -354,6 +298,8 @@ export function ServicesSection() {
               service={service}
               index={index}
               isInView={isInView}
+              ctaLabel={s.cta}
+              mostPopularLabel={s.mostPopular}
             />
           ))}
         </div>

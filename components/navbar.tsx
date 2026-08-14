@@ -4,16 +4,37 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { LanguageToggle } from '@/components/language-toggle'
+import { useLanguage } from '@/components/language-provider'
 
-const navLinks = [
-  { href: '#about', label: 'Sobre Mi' },
-  { href: '#services', label: 'Servicios' },
-  { href: '#lab', label: 'Laboratorio' },
-  { href: '#testimonials', label: 'Testimonios' },
-  { href: '#contact', label: 'Contacto' },
-]
+const copy = {
+  en: {
+    links: [
+      { href: '#about', label: 'About' },
+      { href: '#services', label: 'Services' },
+      { href: '#lab', label: 'Lab' },
+      { href: '#testimonials', label: 'Reviews' },
+      { href: '#contact', label: 'Contact' },
+    ],
+    cta: 'Hire Me',
+    openMenu: 'Open menu',
+  },
+  es: {
+    links: [
+      { href: '#about', label: 'Sobre Mi' },
+      { href: '#services', label: 'Servicios' },
+      { href: '#lab', label: 'Laboratorio' },
+      { href: '#testimonials', label: 'Testimonios' },
+      { href: '#contact', label: 'Contacto' },
+    ],
+    cta: 'Contratar',
+    openMenu: 'Abrir menú',
+  },
+}
 
 export function Navbar() {
+  const { locale } = useLanguage()
+  const c = copy[locale]
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('')
@@ -30,7 +51,7 @@ export function Navbar() {
   // sabe donde esta dentro de la pagina de una sola vista sin tener que
   // adivinar a partir del scroll.
   useEffect(() => {
-    const sections = navLinks
+    const sections = c.links
       .map((link) => document.querySelector(link.href))
       .filter((el): el is Element => Boolean(el))
 
@@ -50,7 +71,8 @@ export function Navbar() {
 
     sections.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale])
 
   return (
     <>
@@ -86,7 +108,7 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, index) => {
+            {c.links.map((link, index) => {
               const isActive = activeHref === link.href
               return (
                 <motion.a
@@ -111,8 +133,9 @@ export function Navbar() {
             })}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button + Language toggle */}
           <div className="hidden md:flex items-center gap-4">
+            <LanguageToggle />
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -122,19 +145,22 @@ export function Navbar() {
                 asChild
                 className="bg-primary hover:bg-primary/90 text-primary-foreground glow-crimson-sm hover:glow-crimson transition-all duration-300"
               >
-                <a href="#contact">Contratar</a>
+                <a href="#contact">{c.cta}</a>
               </Button>
             </motion.div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground"
-            aria-label="Abrir menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: language toggle + menu button */}
+          <div className="flex items-center gap-3 md:hidden">
+            <LanguageToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-foreground"
+              aria-label={c.openMenu}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -150,7 +176,7 @@ export function Navbar() {
           >
             <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
             <nav className="relative pt-24 px-6 flex flex-col gap-4">
-              {navLinks.map((link, index) => {
+              {c.links.map((link, index) => {
                 const isActive = activeHref === link.href
                 return (
                   <motion.a
@@ -181,7 +207,7 @@ export function Navbar() {
                   size="lg"
                 >
                   <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                    Contratar
+                    {c.cta}
                   </a>
                 </Button>
               </motion.div>

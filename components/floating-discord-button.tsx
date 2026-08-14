@@ -3,10 +3,18 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, X } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 const DISCORD_URL = 'https://discord.gg/RDfAFqhZye'
 
+const copy = {
+  en: { cta: "Let's Talk on Discord", dismiss: 'Dismiss' },
+  es: { cta: 'Hablemos por Discord', dismiss: 'Ocultar' },
+}
+
 export function FloatingDiscordButton() {
+  const { locale } = useLanguage()
+  const c = copy[locale]
   const [visible, setVisible] = useState(false)
   const [dismissed, setDismissed] = useState(false)
 
@@ -30,7 +38,7 @@ export function FloatingDiscordButton() {
         >
           <button
             onClick={() => setDismissed(true)}
-            aria-label="Ocultar"
+            aria-label={c.dismiss}
             className="w-6 h-6 rounded-full bg-secondary/80 border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
           >
             <X className="w-3 h-3" />
@@ -55,7 +63,7 @@ export function FloatingDiscordButton() {
             />
             <MessageSquare className="w-5 h-5 relative z-10 flex-shrink-0" />
             <span className="relative z-10 text-sm font-semibold whitespace-nowrap">
-              Hablemos por Discord
+              {c.cta}
             </span>
           </motion.a>
         </motion.div>

@@ -3,6 +3,28 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { allTestimonials, type Testimonial } from '@/lib/testimonials-data'
+import { useLanguage } from '@/components/language-provider'
+
+const sectionCopy = {
+  en: {
+    eyebrow: 'Verified Reviews',
+    h2pre: 'What My ',
+    h2word: 'Clients',
+    h2post: ' Say',
+    subtitle: 'Over 360 servers configured. Real results, real clients.',
+    stats: [['360+', 'Happy clients'], ['4.98', 'Average rating'], ['99%', 'Would recommend']] as const,
+    trustPill: 'Join hundreds of servers',
+  },
+  es: {
+    eyebrow: 'Testimonios Verificados',
+    h2pre: 'Lo que dicen mis ',
+    h2word: 'clientes',
+    h2post: '',
+    subtitle: 'Más de 360 servidores configurados. Resultados reales, clientes reales.',
+    stats: [['360+', 'Clientes felices'], ['4.98', 'Rating promedio'], ['99%', 'Recomendarían']] as const,
+    trustPill: 'Únete a cientos de servers',
+  },
+}
 
 // 2 filas para el marquee
 const row1 = allTestimonials.slice(0, 18)
@@ -96,7 +118,10 @@ function Stars() {
 }
 
 function TestimonialCard({ t }: { t: Testimonial }) {
+  const { locale } = useLanguage()
   const ini = getInitials(t.label)
+  const text = locale === 'en' ? t.textEn : t.text
+  const role = locale === 'en' ? t.roleEn : t.role
 
   return (
     <div
@@ -137,7 +162,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         fontStyle: 'italic',
         fontWeight: 400,
       }}>
-        &ldquo;{t.text}&rdquo;
+        &ldquo;{text}&rdquo;
       </p>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -166,7 +191,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             marginTop: 2,
             fontFamily: 'system-ui, -apple-system, sans-serif',
           }}>
-            {t.role} @ <span style={{ color: '#C8102E' }}>{t.server}</span>
+            {role} @ <span style={{ color: '#C8102E' }}>{t.server}</span>
           </div>
         </div>
       </div>
@@ -202,6 +227,8 @@ function MarqueeRow({ testimonials, direction = 'left', duration = 65 }: {
 }
 
 export function TestimonialsSection() {
+  const { locale } = useLanguage()
+  const s = sectionCopy[locale]
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -240,7 +267,7 @@ export function TestimonialsSection() {
             textTransform: 'uppercase', color: '#C8102E', marginBottom: 14,
           }}>
             <span style={{ display: 'inline-block', width: 18, height: 2, background: '#C8102E', borderRadius: 2 }} />
-            Testimonios Verificados
+            {s.eyebrow}
           </div>
 
           <h2 style={{
@@ -252,8 +279,9 @@ export function TestimonialsSection() {
             marginBottom: 10,
             fontFamily: 'system-ui, -apple-system, sans-serif',
           }}>
-            Lo que dicen mis{' '}
-            <span style={{ color: '#C8102E' }}>clientes</span>
+            {s.h2pre}
+            <span style={{ color: '#C8102E' }}>{s.h2word}</span>
+            {s.h2post}
           </h2>
 
           <p style={{
@@ -262,7 +290,7 @@ export function TestimonialsSection() {
             fontWeight: 400,
             lineHeight: 1.6,
           }}>
-            Más de 360 servidores configurados. Resultados reales, clientes reales.
+            {s.subtitle}
           </p>
         </div>
 
@@ -270,11 +298,7 @@ export function TestimonialsSection() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 32, flexShrink: 0 }}>
 
           {/* Stats */}
-          {([
-            ['360+', 'Clientes felices'],
-            ['4.98', 'Rating promedio'],
-            ['99%',  'Recomendarían'],
-          ] as const).map(([num, lbl], i) => (
+          {s.stats.map(([num, lbl], i) => (
             <div key={lbl} style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
               {i > 0 && (
                 <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.08)' }} />
@@ -316,7 +340,7 @@ export function TestimonialsSection() {
               ))}
             </div>
             <span style={{ fontSize: 12, color: 'rgba(240,237,232,0.40)', whiteSpace: 'nowrap' }}>
-              Únete a cientos de servers
+              {s.trustPill}
             </span>
           </div>
 

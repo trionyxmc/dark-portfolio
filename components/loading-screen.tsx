@@ -2,8 +2,15 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useLanguage } from '@/components/language-provider'
+
+const copy = {
+  en: 'Loading experience...',
+  es: 'Cargando experiencia...',
+}
 
 export function LoadingScreen() {
+  const { locale } = useLanguage()
   // Arranca en `true` siempre (igual que en el servidor) para que el primer
   // render en el cliente coincida exacto con el HTML del servidor y no haya
   // mismatch de hidratacion. Recien despues de montar (useEffect, que solo
@@ -82,7 +89,7 @@ export function LoadingScreen() {
               transition={{ delay: 0.5 }}
               className="mt-4 text-sm text-muted-foreground"
             >
-              Cargando experiencia...
+              {copy[locale]}
             </motion.p>
           </div>
         </motion.div>

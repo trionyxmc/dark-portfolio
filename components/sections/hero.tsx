@@ -6,8 +6,36 @@ import { Button } from '@/components/ui/button'
 import { EmberParticles } from '@/components/ember-particles'
 import { FloatingCubes } from '@/components/floating-cubes'
 import { ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+
+const copy = {
+  en: {
+    line1: 'I Build',
+    line2: 'Servers',
+    line3: 'That Impress',
+    tier: 'TRUST + HARD WORK',
+    subtitle:
+      "Plugins that feel custom-built, bots your community actually uses every day, and networks that don't crash mid-event. No copy-pasted configs.",
+    viewProjects: 'View Projects',
+    hire: 'Hire Me',
+    alt: 'DS character',
+  },
+  es: {
+    line1: 'Construyo',
+    line2: 'Servidores',
+    line3: 'Que Impresionan',
+    tier: 'CONFIANZA + TRABAJO',
+    subtitle:
+      'Plugins que se sienten hechos a medida, bots que tu comunidad usa todos los días, y networks que no se caen a mitad de un evento. Nada de configs copiadas.',
+    viewProjects: 'Ver Proyectos',
+    hire: 'Contratar',
+    alt: 'Personaje DS',
+  },
+}
 
 export function HeroSection() {
+  const { locale } = useLanguage()
+  const c = copy[locale]
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -58,14 +86,14 @@ export function HeroSection() {
               transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
             >
-              <span className="text-foreground">Construyo</span>
+              <span className="text-foreground">{c.line1}</span>
               <br />
-              <span className="text-primary text-glow">Servidores</span>
+              <span className="text-primary text-glow">{c.line2}</span>
               <br />
-              <span className="text-foreground">Que Impresionan</span>
+              <span className="text-foreground">{c.line3}</span>
               <br />
               <span className="font-[var(--font-display)] text-xl sm:text-2xl lg:text-3xl text-muted-foreground tracking-wider">
-                CONFIANZA + TRABAJO
+                {c.tier}
               </span>
             </motion.h1>
 
@@ -76,8 +104,7 @@ export function HeroSection() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto lg:mx-0 mb-8 leading-relaxed"
             >
-              Plugins que se sienten hechos a medida, bots que tu comunidad usa todos los
-              días, y networks que no se caen a mitad de un evento. Nada de configs copiadas.
+              {c.subtitle}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -93,7 +120,7 @@ export function HeroSection() {
                 className="bg-primary hover:bg-primary/90 text-primary-foreground glow-crimson hover:glow-crimson group text-base px-8 py-6"
               >
                 <a href="#lab">
-                  Ver Proyectos
+                  {c.viewProjects}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
@@ -103,7 +130,7 @@ export function HeroSection() {
                 variant="outline"
                 className="border-primary/50 text-foreground hover:bg-primary/10 hover:border-primary text-base px-8 py-6"
               >
-                <a href="#contact">Contratar</a>
+                <a href="#contact">{c.hire}</a>
               </Button>
             </motion.div>
           </div>
@@ -138,7 +165,7 @@ export function HeroSection() {
             >
               <img
                 src="/preview.webp"
-                alt="Personaje DS"
+                alt={c.alt}
                 className="w-[280px] sm:w-[340px] lg:w-[420px] object-contain drop-shadow-[0_0_50px_rgba(139,0,0,0.7)]"
               />
 

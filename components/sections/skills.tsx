@@ -1,86 +1,118 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
+import { useLanguage } from '@/components/language-provider'
 
-const categories = [
-  {
-    id: 1,
-    title: 'Minecraft',
-    sub: 'Config & Sistemas',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-        <path d="M2 17l10 5 10-5"/>
-        <path d="M2 12l10 5 10-5"/>
-      </svg>
-    ),
-    skills: [
-      { name: 'Configuración de Plugins', level: 100 },
-      { name: 'Menús y Sistemas',         level: 85  },
-      { name: 'Personalización de configs', level: 70 },
-      { name: 'Fixeo de bugs',            level: 65  },
-      { name: 'Creación de sistemas únicos', level: 90 },
-      { name: 'Geyser / Conexiones',      level: 87  },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Discord Developer',
-    sub: 'Bots & Automatizaciones',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-    ),
-    skills: [
-      { name: 'Sistemas avanzados',   level: 95 },
-      { name: 'Sistema de tickets',   level: 90 },
-      { name: 'Automatizaciones',     level: 50 },
-      { name: 'Moderación',           level: 85 },
-      { name: 'Minijuegos / sistemas', level: 70 },
-      { name: 'Discord.js',           level: 65 },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Tebex / Web',
-    sub: 'Tiendas & Frontend',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-    ),
-    skills: [
-      { name: 'Traducciones',             level: 100 },
-      { name: 'Edición Visual',           level: 50  },
-      { name: 'CSS Personalizado',        level: 65  },
-      { name: 'Configuración de Tienda',  level: 95  },
-      { name: 'Optimización Visual',      level: 70  },
-      { name: 'Personalización de theme', level: 80  },
-    ],
-  },
-  {
-    id: 4,
-    title: 'Infraestructura',
-    sub: 'Networks & Producción',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
-        <rect x="2" y="2" width="20" height="8" rx="2"/>
-        <rect x="2" y="14" width="20" height="8" rx="2"/>
-        <line x1="6" y1="6" x2="6.01" y2="6"/>
-        <line x1="6" y1="18" x2="6.01" y2="18"/>
-      </svg>
-    ),
-    skills: [
-      { name: 'Dominio a IP',             level: 95 },
-      { name: 'Ajustes de Red',           level: 88 },
-      { name: 'Producción',               level: 90 },
-      { name: 'Despliegues Básicos',      level: 85 },
-      { name: 'Configuración Funcional',  level: 92 },
-    ],
-  },
+const icons = [
+  <svg key="mc" viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
+    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+    <path d="M2 17l10 5 10-5"/>
+    <path d="M2 12l10 5 10-5"/>
+  </svg>,
+  <svg key="discord" viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>,
+  <svg key="tebex" viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>,
+  <svg key="infra" viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] stroke-[var(--crimson)]">
+    <rect x="2" y="2" width="20" height="8" rx="2"/>
+    <rect x="2" y="14" width="20" height="8" rx="2"/>
+    <line x1="6" y1="6" x2="6.01" y2="6"/>
+    <line x1="6" y1="18" x2="6.01" y2="18"/>
+  </svg>,
 ]
+
+const categoriesData = {
+  en: [
+    { id: 1, title: 'Minecraft', sub: 'Config & Systems', skills: [
+      { name: 'Plugin Configuration', level: 100 },
+      { name: 'Menus & Systems', level: 85 },
+      { name: 'Config Customization', level: 70 },
+      { name: 'Bug Fixing', level: 65 },
+      { name: 'Custom System Building', level: 90 },
+      { name: 'Geyser / Connections', level: 87 },
+    ] },
+    { id: 2, title: 'Discord Developer', sub: 'Bots & Automation', skills: [
+      { name: 'Advanced Systems', level: 95 },
+      { name: 'Ticket System', level: 90 },
+      { name: 'Automation', level: 50 },
+      { name: 'Moderation', level: 85 },
+      { name: 'Mini-games / Systems', level: 70 },
+      { name: 'Discord.js', level: 65 },
+    ] },
+    { id: 3, title: 'Tebex / Web', sub: 'Stores & Frontend', skills: [
+      { name: 'Translations', level: 100 },
+      { name: 'Visual Editing', level: 50 },
+      { name: 'Custom CSS', level: 65 },
+      { name: 'Store Configuration', level: 95 },
+      { name: 'Visual Optimization', level: 70 },
+      { name: 'Theme Customization', level: 80 },
+    ] },
+    { id: 4, title: 'Infrastructure', sub: 'Networks & Production', skills: [
+      { name: 'Domain to IP', level: 95 },
+      { name: 'Network Tuning', level: 88 },
+      { name: 'Production', level: 90 },
+      { name: 'Basic Deployments', level: 85 },
+      { name: 'Functional Configuration', level: 92 },
+    ] },
+  ],
+  es: [
+    { id: 1, title: 'Minecraft', sub: 'Config & Sistemas', skills: [
+      { name: 'Configuración de Plugins', level: 100 },
+      { name: 'Menús y Sistemas', level: 85 },
+      { name: 'Personalización de configs', level: 70 },
+      { name: 'Fixeo de bugs', level: 65 },
+      { name: 'Creación de sistemas únicos', level: 90 },
+      { name: 'Geyser / Conexiones', level: 87 },
+    ] },
+    { id: 2, title: 'Discord Developer', sub: 'Bots & Automatizaciones', skills: [
+      { name: 'Sistemas avanzados', level: 95 },
+      { name: 'Sistema de tickets', level: 90 },
+      { name: 'Automatizaciones', level: 50 },
+      { name: 'Moderación', level: 85 },
+      { name: 'Minijuegos / sistemas', level: 70 },
+      { name: 'Discord.js', level: 65 },
+    ] },
+    { id: 3, title: 'Tebex / Web', sub: 'Tiendas & Frontend', skills: [
+      { name: 'Traducciones', level: 100 },
+      { name: 'Edición Visual', level: 50 },
+      { name: 'CSS Personalizado', level: 65 },
+      { name: 'Configuración de Tienda', level: 95 },
+      { name: 'Optimización Visual', level: 70 },
+      { name: 'Personalización de theme', level: 80 },
+    ] },
+    { id: 4, title: 'Infraestructura', sub: 'Networks & Producción', skills: [
+      { name: 'Dominio a IP', level: 95 },
+      { name: 'Ajustes de Red', level: 88 },
+      { name: 'Producción', level: 90 },
+      { name: 'Despliegues Básicos', level: 85 },
+      { name: 'Configuración Funcional', level: 92 },
+    ] },
+  ],
+}
+
+function buildCategories(locale: 'en' | 'es') {
+  return categoriesData[locale].map((cat, i) => ({ ...cat, icon: icons[i] }))
+}
+
+type Category = ReturnType<typeof buildCategories>[number]
+
+const sectionCopy = {
+  en: {
+    eyebrow: 'Technical Skills',
+    h2pre: 'My ',
+    h2word: 'Expertise',
+    subtitle: 'Years of work across Minecraft servers, web development, Discord bots, and infrastructure.',
+  },
+  es: {
+    eyebrow: 'Habilidades Técnicas',
+    h2pre: 'Mi ',
+    h2word: 'Experiencia',
+    subtitle: 'Años de trabajo en servidores Minecraft, desarrollo web, bots de Discord e infraestructura.',
+  },
+}
 
 /* ─── Single animated skill bar ─── */
 function SkillBar({
@@ -169,7 +201,7 @@ function SkillCard({
   cardIndex,
   active,
 }: {
-  category: (typeof categories)[0]
+  category: Category
   cardIndex: number
   active: boolean
 }) {
@@ -197,8 +229,6 @@ function SkillCard({
         el.style.transform = 'translateY(0)'
       }}
     >
-      {/* Hover glow — handled via pseudo via inline hover above */}
-
       {/* Decorative index number */}
       <span
         style={{
@@ -257,6 +287,9 @@ function SkillCard({
 
 /* ─── Section ─── */
 export function SkillsSection() {
+  const { locale } = useLanguage()
+  const categories = buildCategories(locale)
+  const s = sectionCopy[locale]
   const sectionRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(false)
 
@@ -309,13 +342,13 @@ export function SkillsSection() {
           <div style={{ animation: 'fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards', opacity: 0 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--crimson)', marginBottom: 18 }}>
               <span style={{ display: 'inline-block', width: 18, height: 2, background: 'var(--crimson)', borderRadius: 2 }} />
-              Habilidades Técnicas
+              {s.eyebrow}
             </div>
             <h2 style={{ fontFamily: 'var(--syne)', fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.02em', color: 'var(--text)', marginBottom: 10 }}>
-              Mi <em style={{ fontStyle: 'normal', color: 'var(--crimson)' }}>Experiencia</em>
+              {s.h2pre}<em style={{ fontStyle: 'normal', color: 'var(--crimson)' }}>{s.h2word}</em>
             </h2>
             <p style={{ fontSize: 14, color: 'rgba(240,237,232,0.38)', marginBottom: 52, fontWeight: 300, lineHeight: 1.6 }}>
-              Años de trabajo en servidores Minecraft, desarrollo web, bots de Discord e infraestructura.
+              {s.subtitle}
             </p>
           </div>
 

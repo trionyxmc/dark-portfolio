@@ -9,44 +9,106 @@ import {
   Send,
   MessageSquare,
   Mail,
-  Github,
   ShoppingBag,
   Sparkles,
   ArrowRight,
   CheckCircle2,
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
-const socialLinks = [
-  {
-    name: 'Discord',
-    icon: MessageSquare,
-    href: 'https://discord.gg/RDfAFqhZye',
-    color: 'hover:bg-[#5865F2]/20 hover:border-[#5865F2]/50 hover:text-[#5865F2]',
-    description: 'Respuesta rapida',
+const CONTACT_EMAIL = 'darknessservices00@gmail.com'
+
+const socialLinksData = {
+  en: [
+    { name: 'Discord', icon: MessageSquare, href: 'https://discord.gg/RDfAFqhZye', color: 'hover:bg-[#5865F2]/20 hover:border-[#5865F2]/50 hover:text-[#5865F2]', description: 'Fast response' },
+    { name: 'BuiltByBit', icon: ShoppingBag, href: 'https://builtbybit.com/resources/jobs-config-menu-en-es.94516/', color: 'hover:bg-primary/20 hover:border-primary/50 hover:text-primary', description: 'View marketplace' },
+    { name: 'Email', icon: Mail, href: `mailto:${CONTACT_EMAIL}`, color: 'hover:bg-primary/20 hover:border-primary/50 hover:text-primary', description: 'Professional inquiries' },
+  ],
+  es: [
+    { name: 'Discord', icon: MessageSquare, href: 'https://discord.gg/RDfAFqhZye', color: 'hover:bg-[#5865F2]/20 hover:border-[#5865F2]/50 hover:text-[#5865F2]', description: 'Respuesta rapida' },
+    { name: 'BuiltByBit', icon: ShoppingBag, href: 'https://builtbybit.com/resources/jobs-config-menu-en-es.94516/', color: 'hover:bg-primary/20 hover:border-primary/50 hover:text-primary', description: 'Ver marketplace' },
+    { name: 'Email', icon: Mail, href: `mailto:${CONTACT_EMAIL}`, color: 'hover:bg-primary/20 hover:border-primary/50 hover:text-primary', description: 'Consultas profesionales' },
+  ],
+}
+
+const serviceOptionsData = {
+  en: ['Configuration', 'Network Setup', 'Bot Development', 'Tebex Stores', 'Domain to IP', 'Pterodactyl', 'VPS Setup', 'Dedicated Servers', 'Translation', 'Bot Add-ons'],
+  es: ['Configuraciones', 'Creacion de Networks', 'Desarrollo de Bots', 'Tiendas Tebex', 'Dominio a IP', 'Pterodactyl', 'Instalacion de VPS', 'Servidores Dedicados', 'Traduccion', 'Complementos de Bots'],
+}
+const serviceEmojis = ['⚙️', '📡', '🤖', '🛒', '🌐', '🦕', '🖥️', '🏢', '🌍', '➕']
+
+const copy = {
+  en: {
+    badge: "Let's Work Together",
+    h2pre: "Let's Build Your ",
+    h2word: 'Next Server',
+    h2post: '?',
+    subtitle: "Tell me what you have in mind and within 24 hours I'll tell you exactly how we'll do it and what it costs.",
+    doneTitle: 'All Set!',
+    doneBody: "Your email client just opened with the message ready to send. I'll reply within 24 hours.",
+    sendAnother: 'Send Another Message',
+    nameLabel: 'Name',
+    namePlaceholder: 'Your name',
+    discordLabel: 'Discord',
+    discordPlaceholder: 'username',
+    emailLabel: 'Email',
+    serviceLabel: 'Service You Need',
+    servicePlaceholder: 'Select a service',
+    other: 'Other',
+    detailsLabel: 'Project Details',
+    detailsPlaceholder: 'Tell me about your project...',
+    sending: 'Sending...',
+    send: 'Send Message',
+    guaranteeTitle: 'Zero Cookie-Cutter Configs',
+    guaranteeBody: "I look at your server, understand what you actually need, and build something made for you — not a template I've already sold to ten other people.",
+    pills: ['Fast Delivery', '24/7 Support', 'Revisions Included'],
+    exploreText: 'Prefer to browse instead? Check out my products in the marketplace.',
+    visitStore: 'Visit BBB Store',
+    mailSubject: (name: string, service: string) => `New inquiry from ${name} — ${service}`,
+    mailBody: (name: string, discord: string, email: string, service: string, message: string) =>
+      `Name: ${name}\nDiscord: ${discord}\nEmail: ${email}\nService of interest: ${service}\n\nProject details:\n${message}`,
   },
-  {
-    name: 'BuiltByBit',
-    icon: ShoppingBag,
-    href: 'https://builtbybit.com/resources/jobs-config-menu-en-es.94516/',
-    color: 'hover:bg-primary/20 hover:border-primary/50 hover:text-primary',
-    description: 'Ver marketplace',
+  es: {
+    badge: 'Trabajemos Juntos',
+    h2pre: '¿Armamos Tu ',
+    h2word: 'Proximo Servidor',
+    h2post: '?',
+    subtitle: 'Cuéntame qué tienes en mente y en menos de 24 horas te digo exactamente cómo lo hacemos y cuánto sale.',
+    doneTitle: '¡Listo!',
+    doneBody: 'Se abrio tu cliente de correo con el mensaje listo para enviar. Te respondere en menos de 24 horas.',
+    sendAnother: 'Enviar Otro Mensaje',
+    nameLabel: 'Nombre',
+    namePlaceholder: 'Tu nombre',
+    discordLabel: 'Discord',
+    discordPlaceholder: 'usuario',
+    emailLabel: 'Email',
+    serviceLabel: 'Servicio de Interes',
+    servicePlaceholder: 'Selecciona un servicio',
+    other: 'Otro',
+    detailsLabel: 'Detalles del Proyecto',
+    detailsPlaceholder: 'Cuéntame sobre tu proyecto...',
+    sending: 'Enviando...',
+    send: 'Enviar Mensaje',
+    guaranteeTitle: 'Cero Configs de Manual',
+    guaranteeBody: 'Reviso tu servidor, entiendo qué necesitas, y armo algo pensado para ti — no una plantilla que ya le vendí a otros diez.',
+    pills: ['Entrega Rapida', 'Soporte 24/7', 'Revisiones Incluidas'],
+    exploreText: '¿Prefieres explorar? Revisa mis productos en el marketplace.',
+    visitStore: 'Visitar Tienda BBB',
+    mailSubject: (name: string, service: string) => `Nueva consulta de ${name} — ${service}`,
+    mailBody: (name: string, discord: string, email: string, service: string, message: string) =>
+      `Nombre: ${name}\nDiscord: ${discord}\nEmail: ${email}\nServicio de interes: ${service}\n\nDetalles del proyecto:\n${message}`,
   },
-  {
-    name: 'Email',
-    icon: Mail,
-    href: 'mailto:darknessservices00@gmail.com',
-    color: 'hover:bg-primary/20 hover:border-primary/50 hover:text-primary',
-    description: 'Consultas profesionales',
-  },
-]
+}
 
 export function ContactSection() {
+  const { locale } = useLanguage()
+  const c = copy[locale]
+  const socialLinks = socialLinksData[locale]
+  const serviceOptions = serviceOptionsData[locale]
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const CONTACT_EMAIL = 'darknessservices00@gmail.com'
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -59,13 +121,8 @@ export function ContactSection() {
     const service = data.get('service') as string
     const message = data.get('message') as string
 
-    const subject = `Nueva consulta de ${name} — ${service}`
-    const body =
-      `Nombre: ${name}\n` +
-      `Discord: ${discord}\n` +
-      `Email: ${email}\n` +
-      `Servicio de interes: ${service}\n\n` +
-      `Detalles del proyecto:\n${message}`
+    const subject = c.mailSubject(name, service)
+    const body = c.mailBody(name, discord, email, service, message)
 
     const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
@@ -99,14 +156,13 @@ export function ContactSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6"
           >
             <Sparkles className="w-4 h-4" />
-            Trabajemos Juntos
+            {c.badge}
           </motion.span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            ¿Armamos Tu <span className="text-primary text-glow">Proximo Servidor</span>?
+            {c.h2pre}<span className="text-primary text-glow">{c.h2word}</span>{c.h2post}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Cuéntame qué tienes en mente y en menos de 24 horas te digo exactamente
-            cómo lo hacemos y cuánto sale.
+            {c.subtitle}
           </p>
         </motion.div>
 
@@ -127,17 +183,16 @@ export function ContactSection() {
                   <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6 glow-crimson">
                     <CheckCircle2 className="w-10 h-10 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-2">¡Listo!</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">{c.doneTitle}</h3>
                   <p className="text-muted-foreground mb-6">
-                    Se abrio tu cliente de correo con el mensaje listo para enviar.
-                    Te respondere en menos de 24 horas.
+                    {c.doneBody}
                   </p>
                   <Button
                     onClick={() => setIsSubmitted(false)}
                     variant="outline"
                     className="border-primary/50 hover:bg-primary/10"
                   >
-                    Enviar Otro Mensaje
+                    {c.sendAnother}
                   </Button>
                 </motion.div>
               ) : (
@@ -145,42 +200,42 @@ export function ContactSection() {
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div>
                       <label className="text-sm font-medium text-foreground mb-2 block">
-                        Nombre
+                        {c.nameLabel}
                       </label>
                       <Input
                         name="name"
                         required
-                        placeholder="Tu nombre"
+                        placeholder={c.namePlaceholder}
                         className="bg-secondary/30 border-border/50 focus:border-primary/50 h-12"
                       />
                     </div>
                     <div>
                       <label className="text-sm font-medium text-foreground mb-2 block">
-                        Discord
+                        {c.discordLabel}
                       </label>
                       <Input
                         name="discord"
                         required
-                        placeholder="usuario"
+                        placeholder={c.discordPlaceholder}
                         className="bg-secondary/30 border-border/50 focus:border-primary/50 h-12"
                       />
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">
-                      Email
+                      {c.emailLabel}
                     </label>
                     <Input
                       name="email"
                       type="email"
                       required
-                      placeholder="tu@email.com"
+                      placeholder="you@email.com"
                       className="bg-secondary/30 border-border/50 focus:border-primary/50 h-12"
                     />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">
-                      Servicio de Interes
+                      {c.serviceLabel}
                     </label>
                     <select
                       name="service"
@@ -188,29 +243,22 @@ export function ContactSection() {
                       defaultValue=""
                       className="w-full h-12 px-4 rounded-md bg-secondary/30 border border-border/50 focus:border-primary/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
                     >
-                      <option value="" disabled>Selecciona un servicio</option>
-                      <option value="Configuraciones">⚙️ Configuraciones</option>
-                      <option value="Creacion de Networks">📡 Creacion de Networks</option>
-                      <option value="Desarrollo de Bots">🤖 Desarrollo de Bots</option>
-                      <option value="Tiendas Tebex">🛒 Tiendas Tebex</option>
-                      <option value="Dominio a IP">🌐 Dominio a IP</option>
-                      <option value="Pterodactyl">🦕 Pterodactyl</option>
-                      <option value="Instalacion de VPS">🖥️ Instalacion de VPS</option>
-                      <option value="Servidores Dedicados">🏢 Servidores Dedicados</option>
-                      <option value="Traduccion">🌍 Traduccion</option>
-                      <option value="Complementos de Bots">➕ Complementos de Bots</option>
-                      <option value="other">Otro</option>
+                      <option value="" disabled>{c.servicePlaceholder}</option>
+                      {serviceOptions.map((label, i) => (
+                        <option key={label} value={label}>{serviceEmojis[i]} {label}</option>
+                      ))}
+                      <option value="other">{c.other}</option>
                     </select>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">
-                      Detalles del Proyecto
+                      {c.detailsLabel}
                     </label>
                     <Textarea
                       name="message"
                       required
                       rows={4}
-                      placeholder="Cuéntame sobre tu proyecto..."
+                      placeholder={c.detailsPlaceholder}
                       className="bg-secondary/30 border-border/50 focus:border-primary/50 resize-none"
                     />
                   </div>
@@ -226,11 +274,11 @@ export function ContactSection() {
                           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                           className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full"
                         />
-                        Enviando...
+                        {c.sending}
                       </>
                     ) : (
                       <>
-                        Enviar Mensaje
+                        {c.send}
                         <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </>
                     )}
@@ -282,22 +330,17 @@ export function ContactSection() {
                   <Sparkles className="w-7 h-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
-                  Cero Configs de Manual
+                  {c.guaranteeTitle}
                 </h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Reviso tu servidor, entiendo qué necesitas, y armo algo pensado
-                  para ti — no una plantilla que ya le vendí a otros diez.
+                  {c.guaranteeBody}
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 text-sm">
-                  <span className="px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30">
-                    Entrega Rapida
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30">
-                    Soporte 24/7
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30">
-                    Revisiones Incluidas
-                  </span>
+                  {c.pills.map((pill) => (
+                    <span key={pill} className="px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/30">
+                      {pill}
+                    </span>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -312,7 +355,7 @@ export function ContactSection() {
           className="text-center mt-20"
         >
           <p className="text-muted-foreground mb-4">
-            ¿Prefieres explorar? Revisa mis productos en el marketplace.
+            {c.exploreText}
           </p>
           <Button
             asChild
@@ -321,7 +364,7 @@ export function ContactSection() {
             className="border-primary/50 hover:bg-primary/10 hover:border-primary group"
           >
             <a href="https://builtbybit.com/creators/dark_ness.420596/" target="_blank" rel="noopener noreferrer">
-              Visitar Tienda BBB
+              {c.visitStore}
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </Button>

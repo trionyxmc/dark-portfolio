@@ -13,8 +13,42 @@ import {
   Clock,
   Shield,
 } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
+
+const copy = {
+  en: {
+    badge: 'Limited Spots Available',
+    h2pre: "LET'S GIVE YOUR SERVER THE ",
+    h2word: 'UPGRADE IT DESERVES',
+    subtitle: "Over 360 servers have already gone through my hands. Yours could be next — no manual configs, no copy-pasted setups from another server.",
+    trust: [
+      { icon: Zap, label: 'Fast Delivery' },
+      { icon: Clock, label: '24/7 Support' },
+      { icon: Shield, label: 'Satisfaction Guarantee' },
+    ],
+    discordCta: 'Contact on Discord',
+    bbbCta: 'View on BuiltByBit',
+    scarcity: 'I take on a limited number of new projects to guarantee the highest quality.',
+  },
+  es: {
+    badge: 'Cupos Limitados Disponibles',
+    h2pre: '¿LE DAMOS A TU SERVIDOR EL ',
+    h2word: 'UPGRADE QUE SE MERECE',
+    subtitle: 'Mas de 360 servidores ya pasaron por mis manos. El tuyo puede ser el proximo — sin configs de manual, sin copy-paste de otro server.',
+    trust: [
+      { icon: Zap, label: 'Entrega Rápida' },
+      { icon: Clock, label: 'Soporte 24/7' },
+      { icon: Shield, label: 'Garantía de Satisfacción' },
+    ],
+    discordCta: 'Contactar por Discord',
+    bbbCta: 'Ver en BuiltByBit',
+    scarcity: 'Acepto un número limitado de proyectos nuevos para garantizar la máxima calidad.',
+  },
+}
 
 export function FinalCTASection() {
+  const { locale } = useLanguage()
+  const c = copy[locale]
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
 
@@ -100,7 +134,7 @@ export function FinalCTASection() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/20 border border-primary/40 text-primary mb-8 glow-crimson-sm"
           >
             <Sparkles className="w-4 h-4" />
-            <span className="font-medium">Plazas Limitadas Este Mes</span>
+            <span className="font-medium">{c.badge}</span>
             <Sparkles className="w-4 h-4" />
           </motion.div>
 
@@ -112,8 +146,8 @@ export function FinalCTASection() {
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight"
           >
             <span className="text-balance">
-              ¿LE DAMOS A TU SERVIDOR EL{' '}
-              <span className="text-primary text-glow">UPGRADE QUE SE MERECE</span>?
+              {c.h2pre}
+              <span className="text-primary text-glow">{c.h2word}</span>?
             </span>
           </motion.h2>
 
@@ -124,8 +158,7 @@ export function FinalCTASection() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Mas de 360 servidores ya pasaron por mis manos. El tuyo puede ser el
-            proximo — sin configs de manual, sin copy-paste de otro server.
+            {c.subtitle}
           </motion.p>
 
           {/* Trust indicators — mejorados con glass card */}
@@ -135,11 +168,7 @@ export function FinalCTASection() {
             transition={{ delay: 0.5 }}
             className="flex flex-wrap justify-center gap-4 mb-12"
           >
-            {[
-              { icon: Zap,    label: 'Entrega Rápida' },
-              { icon: Clock,  label: 'Soporte 24/7' },
-              { icon: Shield, label: 'Garantía de Satisfacción' },
-            ].map(({ icon: Icon, label }, i) => (
+            {c.trust.map(({ icon: Icon, label }, i) => (
               <motion.div
                 key={label}
                 initial={{ opacity: 0, y: 10 }}
@@ -182,7 +211,7 @@ export function FinalCTASection() {
                     transition={{ duration: 2, repeat: Infinity }}
                   />
                   <MessageSquare className="w-5 h-5 mr-2" />
-                  Contactar por Discord
+                  {c.discordCta}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
@@ -208,7 +237,7 @@ export function FinalCTASection() {
                     transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
                   />
                   <ShoppingBag className="w-5 h-5 mr-2" />
-                  Ver en BuiltByBit
+                  {c.bbbCta}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
@@ -222,9 +251,7 @@ export function FinalCTASection() {
             transition={{ delay: 0.8 }}
             className="mt-8 text-sm text-muted-foreground"
           >
-            Solo acepto{' '}
-            <span className="text-primary font-medium">100 proyectos nuevos</span>{' '}
-            cada mes para garantizar la maxima calidad.
+            {c.scarcity}
           </motion.p>
         </motion.div>
       </div>

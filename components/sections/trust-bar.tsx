@@ -3,45 +3,26 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { Calendar, Star, Zap, Settings, Trophy, ShieldCheck } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
-const stats = [
-  {
-    icon: Calendar,
-    value: 6,
-    suffix: '+',
-    label: 'Años de Experiencia',
-  },
-  {
-    icon: Star,
-    value: 100,
-    suffix: '+',
-    label: 'Configs Entregadas',
-  },
-  {
-    icon: Zap,
-    value: 50,
-    suffix: '+',
-    label: 'Bots de Discord',
-  },
-  {
-    icon: Settings,
-    value: 30,
-    suffix: '+',
-    label: 'Networks de Servidores',
-  },
-  {
-    icon: Trophy,
-    value: 360,
-    suffix: '+',
-    label: 'Clientes Felices',
-  },
-  {
-    icon: ShieldCheck,
-    value: 99,
-    suffix: '%',
-    label: 'Satisfaccion',
-  },
-]
+const statsData = {
+  en: [
+    { icon: Calendar, value: 6, suffix: '+', label: 'Years of Experience' },
+    { icon: Star, value: 100, suffix: '+', label: 'Configs Delivered' },
+    { icon: Zap, value: 50, suffix: '+', label: 'Discord Bots' },
+    { icon: Settings, value: 30, suffix: '+', label: 'Server Networks' },
+    { icon: Trophy, value: 360, suffix: '+', label: 'Happy Clients' },
+    { icon: ShieldCheck, value: 99, suffix: '%', label: 'Satisfaction' },
+  ],
+  es: [
+    { icon: Calendar, value: 6, suffix: '+', label: 'Años de Experiencia' },
+    { icon: Star, value: 100, suffix: '+', label: 'Configs Entregadas' },
+    { icon: Zap, value: 50, suffix: '+', label: 'Bots de Discord' },
+    { icon: Settings, value: 30, suffix: '+', label: 'Networks de Servidores' },
+    { icon: Trophy, value: 360, suffix: '+', label: 'Clientes Felices' },
+    { icon: ShieldCheck, value: 99, suffix: '%', label: 'Satisfaccion' },
+  ],
+}
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0)
@@ -78,6 +59,8 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export function TrustBar() {
+  const { locale } = useLanguage()
+  const stats = statsData[locale]
   const containerRef = useRef(null)
   const isInView = useInView(containerRef, { once: true, margin: '-100px' })
 
