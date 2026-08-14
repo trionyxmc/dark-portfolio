@@ -11,7 +11,6 @@ import {
   Mail,
   ShoppingBag,
   Sparkles,
-  ArrowRight,
   CheckCircle2,
 } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
@@ -62,8 +61,6 @@ const copy = {
     guaranteeTitle: 'Zero Cookie-Cutter Configs',
     guaranteeBody: "I look at your server, understand what you actually need, and build something made for you — not a template I've already sold to ten other people.",
     pills: ['Fast Delivery', '24/7 Support', 'Revisions Included'],
-    exploreText: 'Prefer to browse instead? Check out my products in the marketplace.',
-    visitStore: 'Visit BBB Store',
     mailSubject: (name: string, service: string) => `New inquiry from ${name} — ${service}`,
     mailBody: (name: string, discord: string, email: string, service: string, message: string) =>
       `Name: ${name}\nDiscord: ${discord}\nEmail: ${email}\nService of interest: ${service}\n\nProject details:\n${message}`,
@@ -92,8 +89,6 @@ const copy = {
     guaranteeTitle: 'Cero Configs de Manual',
     guaranteeBody: 'Reviso tu servidor, entiendo qué necesitas, y armo algo pensado para ti — no una plantilla que ya le vendí a otros diez.',
     pills: ['Entrega Rapida', 'Soporte 24/7', 'Revisiones Incluidas'],
-    exploreText: '¿Prefieres explorar? Revisa mis productos en el marketplace.',
-    visitStore: 'Visitar Tienda BBB',
     mailSubject: (name: string, service: string) => `Nueva consulta de ${name} — ${service}`,
     mailBody: (name: string, discord: string, email: string, service: string, message: string) =>
       `Nombre: ${name}\nDiscord: ${discord}\nEmail: ${email}\nServicio de interes: ${service}\n\nDetalles del proyecto:\n${message}`,
@@ -346,29 +341,6 @@ export function ContactSection() {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Final CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="text-center mt-20"
-        >
-          <p className="text-muted-foreground mb-4">
-            {c.exploreText}
-          </p>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="border-primary/50 hover:bg-primary/10 hover:border-primary group"
-          >
-            <a href="https://builtbybit.com/creators/dark_ness.420596/" target="_blank" rel="noopener noreferrer">
-              {c.visitStore}
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
-        </motion.div>
       </div>
     </section>
   )
