@@ -134,6 +134,7 @@ export function Footer() {
                   src="/preview.webp"
                   alt="DarknessServices logo"
                   fill
+                  sizes="44px"
                   className="object-cover"
                   priority
                 />

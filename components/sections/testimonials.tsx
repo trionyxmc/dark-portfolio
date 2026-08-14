@@ -1,10 +1,11 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { Pause, Play } from 'lucide-react'
 import { allTestimonials, type Testimonial } from '@/lib/testimonials-data'
 import { useLanguage } from '@/components/language-provider'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 const sectionCopy = {
   en: {

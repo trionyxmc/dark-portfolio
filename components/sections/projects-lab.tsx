@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 import { useLanguage } from '@/components/language-provider'
 
 interface Project {
@@ -156,13 +157,13 @@ function ProjectCard({
       {/* Media — más alto y sin grayscale */}
       <div className="relative w-full h-[220px] overflow-hidden bg-[#202020]">
         {showImage ? (
-          <img
+          <Image
             src={project.images[0]}
             alt={project.name}
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="(max-width: 640px) 100vw, 50vw"
             onError={() => setImgError(true)}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center gap-2">
@@ -344,10 +345,12 @@ function ProjectModal({
             {/* Main image */}
             <div className="relative flex-1 bg-[#1a1a1a] min-h-0">
               {isValidImage(project.images[imgIdx]) ? (
-                <img
+                <Image
                   src={project.images[imgIdx]}
                   alt={`${project.name} — ${imgIdx + 1}/${project.images.length}`}
-                  className="w-full h-full object-contain"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 780px"
+                  className="object-contain"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
@@ -395,11 +398,13 @@ function ProjectModal({
                   }`}
                 >
                   {isValidImage(img) && !thumbErrors[i] ? (
-                    <img
+                    <Image
                       src={img}
                       alt=""
+                      fill
+                      sizes="160px"
                       onError={() => handleThumbError(i)}
-                      className="w-full h-full object-cover"
+                      className="object-cover"
                     />
                   ) : (
                     <div className="w-full h-full bg-[#222]" />

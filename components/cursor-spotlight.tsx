@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 export function CursorSpotlight() {
   const shouldReduceMotion = useReducedMotion()

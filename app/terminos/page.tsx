@@ -509,7 +509,7 @@ function TosTopBar({ backHomeLabel, backLabel }: { backHomeLabel: string; backLa
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-primary/30 flex-shrink-0">
-            <Image src="/preview.webp" alt="DS" fill className="object-cover object-top" />
+            <Image src="/preview.webp" alt="DS" fill sizes="32px" className="object-cover object-top" />
           </div>
           <span className="hidden sm:inline text-sm font-semibold text-foreground tracking-tight">
             DARK_NESS SERVICES

@@ -119,6 +119,7 @@ export function FinalCTASection() {
                   src="/preview.webp"
                   alt="DarknessServices"
                   fill
+                  sizes="80px"
                   className="object-cover"
                   priority
                 />

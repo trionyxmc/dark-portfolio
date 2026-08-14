@@ -1,12 +1,14 @@
 "use client"
 
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { EmberParticles } from '@/components/ember-particles'
 import { FloatingCubes } from '@/components/floating-cubes'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 
 const copy = {
   en: {
@@ -171,10 +173,13 @@ export function HeroSection() {
               animate={shouldReduceMotion ? undefined : { y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <img
+              <Image
                 src="/preview.webp"
                 alt={c.alt}
-                className="w-[280px] sm:w-[340px] lg:w-[420px] object-contain drop-shadow-[0_0_50px_rgba(139,0,0,0.7)]"
+                width={1254}
+                height={1254}
+                priority
+                className="w-[280px] sm:w-[340px] lg:w-[420px] h-auto object-contain drop-shadow-[0_0_50px_rgba(139,0,0,0.7)]"
               />
 
               {/* Particulas de energia flotando alrededor del personaje,
