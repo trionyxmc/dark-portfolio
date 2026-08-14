@@ -2,7 +2,8 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { allTestimonials, getInitials, MinecraftAvatar } from '@/components/sections/testimonials'
+import { allTestimonials } from '@/lib/testimonials-data'
+import { getInitials, MinecraftAvatar } from '@/components/sections/testimonials'
 
 // Prueba social corta y temprana en el recorrido, antes de que el visitante
 // llegue al carrusel completo de testimonios (que aparece mas abajo).

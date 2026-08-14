@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono, Press_Start_2P } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { siteUrl } from '@/lib/site'
+import { allTestimonials } from '@/lib/testimonials-data'
 import './globals.css'
 
 const inter = Inter({ 
@@ -21,13 +23,6 @@ const pressStart = Press_Start_2P({
   variable: '--font-display',
   display: 'swap',
 })
-
-// Usa NEXT_PUBLIC_SITE_URL si se define (cuando tengas dominio propio),
-// si no cae en la URL que Vercel asigna automaticamente al deploy,
-// y en desarrollo local usa localhost.
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -53,8 +48,55 @@ export const metadata: Metadata = {
     description: 'Servicios premium de desarrollo para Minecraft y Discord. Configuraciones avanzadas, bots personalizados, tiendas Tebex y soluciones web profesionales.',
     type: 'website',
     locale: 'es_ES',
+    url: siteUrl,
     images: [{ url: '/preview.webp' }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DARK_NESS SERVICES | Desarrollo Minecraft & Discord Premium',
+    description: 'Servicios premium de desarrollo para Minecraft y Discord. Configuraciones avanzadas, bots personalizados, tiendas Tebex y soluciones web profesionales.',
+    images: ['/preview.webp'],
+  },
+  alternates: {
+    canonical: '/',
+  },
+}
+
+// Schema.org JSON-LD: describe el negocio y los testimonios reales que ya
+// se muestran en la pagina, para habilitar rich snippets (estrellas) en
+// resultados de busqueda de Google.
+function buildJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'DARK_NESS SERVICES',
+    serviceType: 'Desarrollo y configuracion de servidores Minecraft, bots de Discord y tiendas Tebex',
+    description:
+      'Servicios premium de desarrollo para Minecraft y Discord. Configuraciones avanzadas, bots personalizados, tiendas Tebex y soluciones web profesionales.',
+    provider: {
+      '@type': 'Organization',
+      name: 'DARK_NESS SERVICES',
+      url: siteUrl,
+      image: `${siteUrl}/preview.webp`,
+    },
+    areaServed: 'Worldwide',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      bestRating: '5',
+      reviewCount: String(allTestimonials.length),
+    },
+    review: allTestimonials.map((t) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: t.label },
+      reviewBody: t.text,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+    })),
+  }
 }
 
 export const viewport: Viewport = {
@@ -74,6 +116,15 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${jetbrainsMono.variable} ${pressStart.variable} bg-background`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildJsonLd()).replace(/</g, '\\u003c'),
+          }}
+        />
+      </head>
       <body className="font-sans antialiased overflow-x-hidden">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
