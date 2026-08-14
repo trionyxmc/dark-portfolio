@@ -65,7 +65,7 @@ export function HeroSection() {
               <span className="text-foreground">Que Impresionan</span>
               <br />
               <span className="font-[var(--font-display)] text-xl sm:text-2xl lg:text-3xl text-muted-foreground tracking-wider">
-                SIN PLANTILLAS
+                CONFIANZA + TRABAJO
               </span>
             </motion.h1>
 
